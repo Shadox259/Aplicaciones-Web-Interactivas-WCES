@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ElectroStore</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Roboto, sans-serif;
+    }
+
+    body {
+      background: #f5f7fa;
+      color: #1a2634;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    .header {
+      background: #ffffff;
+      padding: 1rem 0;
+      border-bottom: 1px solid #e2e8f0;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    .header .container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .logo {
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: #0b1a2e;
+    }
+
+    .logo span {
+      color: #2563eb;
+    }
+
+    .nav-menu {
+      display: flex;
+      gap: 1.8rem;
+      flex-wrap: wrap;
+    }
+
+    .nav-menu a {
+      text-decoration: none;
+      color: #2d3a5e;
+      font-weight: 500;
+      font-size: 0.95rem;
+    }
+
+    .nav-menu a:hover {
+      color: #2563eb;
+    }
+
+    .cart-btn {
+      background: #eef2f6;
+      padding: 0.4rem 1.2rem;
+      border-radius: 30px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      border: none;
+      cursor: default;
+    }
+
+    .hero {
+      margin: 2rem 0 3rem;
+      border-radius: 1.5rem;
+      background: #ffffff;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      overflow: hidden;
+      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
+    }
+
+    .hero-img {
+      flex: 1 1 280px;
+      padding: 1.5rem;
+      background: #eaf0f8;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .hero-img svg {
+      width: 100%;
+      max-width: 300px;
+      height: auto;
+    }
+
+    .hero-text {
+      flex: 1 1 240px;
+      padding: 2rem;
+    }
+
+    .hero-text h2 {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+
+    .hero-text p {
+      color: #3d4f6a;
+      margin-bottom: 1.2rem;
+      font-size: 1.05rem;
+    }
+
+    .btn {
+      background: #2563eb;
+      color: white;
+      border: none;
+      padding: 0.7rem 2rem;
+      border-radius: 50px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .btn:hover {
+      background: #1d4ed8;
+    }
+
+    .section-title {
+      font-size: 1.7rem;
+      font-weight: 700;
+      margin: 2.5rem 0 1.5rem;
+    }
+
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 1.8rem;
+    }
+
+    .product-card {
+      background: #ffffff;
+      border-radius: 1.2rem;
+      padding: 1.2rem 0.8rem;
+      text-align: center;
+      border: 1px solid #edf2f7;
+      transition: 0.2s;
+    }
+
+    .product-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.04);
+    }
+
+    .product-card svg {
+      width: 100px;
+      height: 100px;
+      display: block;
+      margin: 0 auto 0.6rem;
+      border-radius: 12px;
+    }
+
+    .product-card h4 {
+      font-size: 1rem;
+      margin-bottom: 0.2rem;
+    }
+
+    .product-card .price {
+      font-weight: 700;
+      font-size: 1.2rem;
+      color: #0b1a2e;
+    }
+
+    .product-card .price small {
+      font-weight: 400;
+      font-size: 0.7rem;
+      color: #6b7d98;
+    }
+
+    .product-card .stars {
+      color: #f59e0b;
+      font-size: 0.85rem;
+      margin: 4px 0 8px;
+      letter-spacing: 2px;
+    }
+
+    .btn-outline {
+      background: transparent;
+      border: 1.5px solid #d0d9e6;
+      padding: 0.3rem 1.4rem;
+      border-radius: 30px;
+      font-weight: 500;
+      font-size: 0.85rem;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .btn-outline:hover {
+      background: #2563eb;
+      border-color: #2563eb;
+      color: white;
+    }
+  
+    .reviews {
+      background: #ffffff;
+      border-radius: 1.5rem;
+      padding: 2rem;
+      margin: 3rem 0 2rem;
+      border: 1px solid #edf2f7;
+    }
+
+    .reviews-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      margin-bottom: 1.5rem;
+    }
+
+    .reviews-header h3 {
+      font-size: 1.6rem;
+      font-weight: 700;
+    }
+
+    .reviews-header .badge {
+      background: #f1f5f9;
+      padding: 0.3rem 1.2rem;
+      border-radius: 50px;
+      font-weight: 600;
+      font-size: 0.9rem;
+    }
+
+    .review-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .review-card {
+      background: #f9fbfd;
+      padding: 1rem 1.2rem;
+      border-radius: 1rem;
+      border: 1px solid #eef2f6;
+    }
+
+    .review-card .user {
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .review-card .user .avatar {
+      background: #dbe7fe;
+      border-radius: 50%;
+      width: 36px;
+      height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      color: #2563eb;
+    }
+
+    .review-card .stars {
+      color: #f59e0b;
+      font-size: 0.8rem;
+      letter-spacing: 2px;
+      margin: 4px 0;
+    }
+
+    .review-card .comment {
+      color: #1e2a44;
+      font-size: 0.9rem;
+    }
+
+    .review-card .date {
+      font-size: 0.7rem;
+      color: #6b7d98;
+    }
+
+    /* FOOTER */
+    .footer {
+      margin-top: 3rem;
+      padding: 1.8rem 0;
+      border-top: 1px solid #e2e8f0;
+      text-align: center;
+      color: #3d4f6a;
+      font-size: 0.9rem;
+    }
+
+    @media (max-width: 600px) {
+      .header .container {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0.5rem;
+      }
+      .nav-menu {
+        justify-content: center;
+      }
+      .hero-text h2 {
+        font-size: 1.6rem;
+      }
+      .product-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <div class="container">
+      <div class="logo">Electro<span>Store</span></div>
+      <nav class="nav-menu">
+        <a href="#">Inicio</a>
+        <a href="#productos">Productos</a>
+        <a href="#reseñas">Reseñas</a>
+        <a href="#">Ofertas</a>
+      </nav>
+      <div class="cart-btn">Carrito</div>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="hero">
+      <div class="hero-img">
+        <svg viewBox="0 0 300 180" xmlns="http://www.w3.org/2000/svg">
+          <rect width="300" height="180" fill="#d9e2ef" rx="16" />
+          <rect x="60" y="40" width="180" height="120" fill="#2563eb" rx="8" opacity="0.15" />
+          <rect x="90" y="60" width="120" height="80" fill="#2563eb" rx="6" opacity="0.25" />
+          <rect x="120" y="80" width="60" height="40" fill="#2563eb" rx="4" opacity="0.4" />
+          <circle cx="250" cy="30" r="20" fill="#2563eb" opacity="0.1" />
+          <circle cx="30" cy="150" r="28" fill="#2563eb" opacity="0.08" />
+        </svg>
+      </div>
+      <div class="hero-text">
+        <h2>Innovación y calidad</h2>
+        <p>Los mejores dispositivos electrónicos al mejor precio. Encuentra todo lo que necesitas.</p>
+        <button class="btn">Ver ofertas</button>
+      </div>
+    </section>
+
+    <section id="productos">
+      <div class="section-title">Productos destacados</div>
+      <div class="product-grid">
+        <div class="product-card">
+          <svg viewBox="0 0 100 100">
+            <rect width="100" height="100" fill="#eaf0f8" rx="12" />
+            <rect x="15" y="20" width="70" height="50" fill="#2563eb" rx="4" opacity="0.3" />
+            <rect x="25" y="75" width="50" height="10" fill="#2563eb" rx="2" opacity="0.2" />
+            <rect x="35" y="30" width="30" height="30" fill="#2563eb" rx="2" opacity="0.5" />
+          </svg>
+          <h4>Laptop Ultra</h4>
+          <div class="stars">★★★★☆</div>
+          <div class="price">$15999 <small>MXN</small></div>
+          <button class="btn-outline">Añadir</button>
+        </div>
+
+        <div class="product-card">
+          <svg viewBox="0 0 100 100">
+            <rect width="100" height="100" fill="#eaf0f8" rx="12" />
+            <rect x="30" y="10" width="40" height="80" fill="#2563eb" rx="6" opacity="0.3" />
+            <rect x="38" y="18" width="24" height="50" fill="#2563eb" rx="3" opacity="0.5" />
+            <circle cx="50" cy="78" r="5" fill="#2563eb" opacity="0.2" />
+          </svg>
+          <h4>Smartphone Pro</h4>
+          <div class="stars">★★★★★</div>
+          <div class="price">$7699 <small>MXN</small></div>
+          <button class="btn-outline">Añadir</button>
+        </div>
+
+        <div class="product-card">
+          <svg viewBox="0 0 100 100">
+            <rect width="100" height="100" fill="#eaf0f8" rx="12" />
+            <rect x="20" y="25" width="60" height="50" fill="#2563eb" rx="25" opacity="0.3" />
+            <rect x="15" y="45" width="12" height="30" fill="#2563eb" rx="4" opacity="0.4" />
+            <rect x="73" y="45" width="12" height="30" fill="#2563eb" rx="4" opacity="0.4" />
+          </svg>
+          <h4>Audífonos ANC</h4>
+          <div class="stars">★★★★★</div>
+          <div class="price">$2149 <small>MXN</small></div>
+          <button class="btn-outline">Añadir</button>
+        </div>
+
+        <div class="product-card">
+          <svg viewBox="0 0 100 100">
+            <rect width="100" height="100" fill="#eaf0f8" rx="12" />
+            <rect x="25" y="30" width="50" height="40" fill="#2563eb" rx="10" opacity="0.3" />
+            <rect x="35" y="20" width="30" height="10" fill="#2563eb" rx="3" opacity="0.4" />
+            <rect x="35" y="70" width="30" height="10" fill="#2563eb" rx="3" opacity="0.4" />
+          </svg>
+          <h4>Smartwatch</h4>
+          <div class="stars">★★★★☆</div>
+          <div class="price">$2049 <small>MXN</small></div>
+          <button class="btn-outline">Añadir</button>
+        </div>
+
+        <div class="product-card">
+          <svg viewBox="0 0 100 100">
+            <rect width="100" height="100" fill="#eaf0f8" rx="12" />
+            <rect x="15" y="15" width="70" height="50" fill="#2563eb" rx="4" opacity="0.3" />
+            <rect x="40" y="65" width="20" height="20" fill="#2563eb" rx="2" opacity="0.2" />
+            <rect x="45" y="75" width="10" height="10" fill="#2563eb" rx="2" opacity="0.3" />
+          </svg>
+          <h4>Monitor 4K</h4>
+          <div class="stars">★★★★★</div>
+          <div class="price">$5399 <small>MXN</small></div>
+          <button class="btn-outline">Añadir</button>
+        </div>
+
+        <div class="product-card">
+          <svg viewBox="0 0 100 100">
+            <rect width="100" height="100" fill="#eaf0f8" rx="12" />
+            <rect x="20" y="30" width="60" height="40" fill="#2563eb" rx="15" opacity="0.3" />
+            <circle cx="35" cy="50" r="6" fill="#2563eb" opacity="0.5" />
+            <circle cx="65" cy="50" r="6" fill="#2563eb" opacity="0.5" />
+            <rect x="25" y="68" width="10" height="8" fill="#2563eb" rx="2" opacity="0.4" />
+            <rect x="65" y="68" width="10" height="8" fill="#2563eb" rx="2" opacity="0.4" />
+          </svg>
+          <h4>Gamepad Pro</h4>
+          <div class="stars">★★★★★</div>
+          <div class="price">$1059 <small>MXN</small></div>
+          <button class="btn-outline">Añadir</button>
+        </div>
+
+      </div>
+    </section>
+
+    <section id="reseñas" class="reviews">
+      <div class="reviews-header">
+        <h3>Reseñas de clientes</h3>
+        <div class="badge">⭐ 4.8 · 284 opiniones</div>
+      </div>
+      <div class="review-grid">
+
+        <div class="review-card">
+          <div class="user">
+            <span class="avatar">MG</span>
+            <span>María G.</span>
+            <span class="date">hace 2 días</span>
+          </div>
+          <div class="stars">★★★★★</div>
+          <p class="comment">"Excelente laptop, rendimiento impecable. Llegó muy rápido."</p>
+        </div>
+
+        <div class="review-card">
+          <div class="user">
+            <span class="avatar">JR</span>
+            <span>Javier R.</span>
+            <span class="date">hace 5 días</span>
+          </div>
+          <div class="stars">★★★★★</div>
+          <p class="comment">"Los audífonos suenan increíble, la cancelación de ruido es top."</p>
+        </div>
+
+        <div class="review-card">
+          <div class="user">
+            <span class="avatar">LP</span>
+            <span>Laura P.</span>
+            <span class="date">hace 1 semana</span>
+          </div>
+          <div class="stars">★★★★★</div>
+          <p class="comment">"El smartwatch es justo lo que buscaba, diseño moderno y funcional."</p>
+        </div>
+
+        <div class="review-card">
+          <div class="user">
+            <span class="avatar">CM</span>
+            <span>Carlos M.</span>
+            <span class="date">hace 2 semanas</span>
+          </div>
+          <div class="stars">★★★★★</div>
+          <p class="comment">"Monitor 4K impecable, colores vivos y entrega rápida."</p>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="footer container">
+    <p>© 2026 ElectroStore — Tienda de electrónicos</p>
+  </footer>
+
+</body>
+</html>
