@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ElectroStore · Bootstrap</title>
+  <!-- Bootstrap 5 (CSS) -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Font Awesome (opcional, para estrellas y refuerzo) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    /* ajustes mínimos para mantener el aire original */
+    body {
+      background: #f5f7fa;
+      color: #1a2634;
+    }
+    .logo {
+      font-weight: 700;
+      font-size: 1.6rem;
+      color: #0b1a2e;
+    }
+    .logo span {
+      color: #2563eb;
+    }
+    .bg-soft-primary {
+      background-color: #eaf0f8;
+    }
+    .btn-outline-custom {
+      border: 1.5px solid #d0d9e6;
+      background: transparent;
+      border-radius: 30px;
+      padding: 0.3rem 1.4rem;
+      font-weight: 500;
+      font-size: 0.85rem;
+      transition: 0.2s;
+    }
+    .btn-outline-custom:hover {
+      background: #2563eb;
+      border-color: #2563eb;
+      color: white;
+    }
+    .star-gold {
+      color: #f59e0b;
+      letter-spacing: 2px;
+      font-size: 0.85rem;
+    }
+    .badge-soft {
+      background: #f1f5f9;
+      padding: 0.3rem 1.2rem;
+      border-radius: 50px;
+      font-weight: 600;
+      font-size: 0.9rem;
+    }
+    .avatar-circle {
+      background: #dbe7fe;
+      border-radius: 50%;
+      width: 36px;
+      height: 36px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      color: #2563eb;
+    }
+    .card-hover {
+      transition: 0.2s;
+      border: 1px solid #edf2f7;
+    }
+    .card-hover:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.04);
+    }
+    .footer {
+      border-top: 1px solid #e2e8f0;
+      color: #3d4f6a;
+    }
+    .hero-svg-bg {
+      background: #eaf0f8;
+      border-radius: 1.5rem 0 0 1.5rem;
+    }
+    @media (max-width: 576px) {
+      .hero-svg-bg {
+        border-radius: 1.5rem 1.5rem 0 0;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER con Bootstrap -->
+  <header class="bg-white border-bottom sticky-top" style="z-index: 10;">
+    <div class="container d-flex flex-wrap align-items-center justify-content-between py-3">
+      <div class="logo">Electro<span>Store</span></div>
+      <nav class="d-flex flex-wrap gap-4">
+        <a href="#" class="text-decoration-none text-dark fw-medium">Inicio</a>
+        <a href="#productos" class="text-decoration-none text-dark fw-medium">Productos</a>
+        <a href="#reseñas" class="text-decoration-none text-dark fw-medium">Reseñas</a>
+        <a href="#" class="text-decoration-none text-dark fw-medium">Ofertas</a>
+      </nav>
+      <div class="bg-light rounded-pill px-3 py-1 fw-semibold small">Carrito</div>
+    </div>
+  </header>
+
+  <main class="container my-4">
+
+    <!-- HERO con Bootstrap (cards / grid) -->
+    <section class="row g-0 bg-white rounded-4 shadow-sm overflow-hidden mb-5">
+      <div class="col-md-5 d-flex align-items-center justify-content-center hero-svg-bg p-4">
+        <svg viewBox="0 0 300 180" xmlns="http://www.w3.org/2000/svg" style="max-width:100%; height:auto;">
+          <rect width="300" height="180" fill="#d9e2ef" rx="16" />
+          <rect x="60" y="40" width="180" height="120" fill="#2563eb" rx="8" opacity="0.15" />
+          <rect x="90" y="60" width="120" height="80" fill="#2563eb" rx="6" opacity="0.25" />
+          <rect x="120" y="80" width="60" height="40" fill="#2563eb" rx="4" opacity="0.4" />
+          <circle cx="250" cy="30" r="20" fill="#2563eb" opacity="0.1" />
+          <circle cx="30" cy="150" r="28" fill="#2563eb" opacity="0.08" />
+        </svg>
+      </div>
+      <div class="col-md-7 p-4 p-md-5 d-flex flex-column justify-content-center">
+        <h2 class="display-6 fw-bold">Innovación y calidad</h2>
+        <p class="text-secondary fs-5">Los mejores dispositivos electrónicos al mejor precio. Encuentra todo lo que necesitas.</p>
+        <div><button class="btn btn-primary rounded-pill px-4 py-2 fw-semibold">Ver ofertas</button></div>
+      </div>
+    </section>
+
+    <!-- PRODUCTOS DESTACADOS con grid de Bootstrap -->
+    <section id="productos">
+      <h3 class="fw-bold fs-2 mb-4">Productos destacados</h3>
+      <div class="row g-4">
+        <!-- Card 1 -->
+        <div class="col-6 col-md-4 col-lg-3">
+          <div class="card h-100 text-center p-3 card-hover border-0 shadow-sm rounded-4">
+            <svg viewBox="0 0 100 100" style="width:100px; height:100px; margin:0 auto 0.6rem;">
+              <rect width="100" height="100" fill="#eaf0f8" rx="12" />
+              <rect x="15" y="20" width="70" height="50" fill="#2563eb" rx="4" opacity="0.3" />
+              <rect x="25" y="75" width="50" height="10" fill="#2563eb" rx="2" opacity="0.2" />
+              <rect x="35" y="30" width="30" height="30" fill="#2563eb" rx="2" opacity="0.5" />
+            </svg>
+            <h5 class="card-title fs-6 fw-semibold">Laptop Ultra</h5>
+            <div class="star-gold">★★★★☆</div>
+            <div class="fw-bold fs-5">$15999 <small class="fw-normal text-secondary small">MXN</small></div>
+            <button class="btn-outline-custom mt-1">Añadir</button>
+          </div>
+        </div>
+        <!-- Card 2 -->
+        <div class="col-6 col-md-4 col-lg-3">
+          <div class="card h-100 text-center p-3 card-hover border-0 shadow-sm rounded-4">
+            <svg viewBox="0 0 100 100" style="width:100px; height:100px; margin:0 auto 0.6rem;">
+              <rect width="100" height="100" fill="#eaf0f8" rx="12" />
+              <rect x="30" y="10" width="40" height="80" fill="#2563eb" rx="6" opacity="0.3" />
+              <rect x="38" y="18" width="24" height="50" fill="#2563eb" rx="3" opacity="0.5" />
+              <circle cx="50" cy="78" r="5" fill="#2563eb" opacity="0.2" />
+            </svg>
+            <h5 class="card-title fs-6 fw-semibold">Smartphone Pro</h5>
+            <div class="star-gold">★★★★★</div>
+            <div class="fw-bold fs-5">$7699 <small class="fw-normal text-secondary small">MXN</small></div>
+            <button class="btn-outline-custom mt-1">Añadir</button>
+          </div>
+        </div>
+        <!-- Card 3 -->
+        <div class="col-6 col-md-4 col-lg-3">
+          <div class="card h-100 text-center p-3 card-hover border-0 shadow-sm rounded-4">
+            <svg viewBox="0 0 100 100" style="width:100px; height:100px; margin:0 auto 0.6rem;">
+              <rect width="100" height="100" fill="#eaf0f8" rx="12" />
+              <rect x="20" y="25" width="60" height="50" fill="#2563eb" rx="25" opacity="0.3" />
+              <rect x="15" y="45" width="12" height="30" fill="#2563eb" rx="4" opacity="0.4" />
+              <rect x="73" y="45" width="12" height="30" fill="#2563eb" rx="4" opacity="0.4" />
+            </svg>
+            <h5 class="card-title fs-6 fw-semibold">Audífonos ANC</h5>
+            <div class="star-gold">★★★★★</div>
+            <div class="fw-bold fs-5">$2149 <small class="fw-normal text-secondary small">MXN</small></div>
+            <button class="btn-outline-custom mt-1">Añadir</button>
+          </div>
+        </div>
+        <!-- Card 4 -->
+        <div class="col-6 col-md-4 col-lg-3">
+          <div class="card h-100 text-center p-3 card-hover border-0 shadow-sm rounded-4">
+            <svg viewBox="0 0 100 100" style="width:100px; height:100px; margin:0 auto 0.6rem;">
+              <rect width="100" height="100" fill="#eaf0f8" rx="12" />
+              <rect x="25" y="30" width="50" height="40" fill="#2563eb" rx="10" opacity="0.3" />
+              <rect x="35" y="20" width="30" height="10" fill="#2563eb" rx="3" opacity="0.4" />
+              <rect x="35" y="70" width="30" height="10" fill="#2563eb" rx="3" opacity="0.4" />
+            </svg>
+            <h5 class="card-title fs-6 fw-semibold">Smartwatch</h5>
+            <div class="star-gold">★★★★☆</div>
+            <div class="fw-bold fs-5">$2049 <small class="fw-normal text-secondary small">MXN</small></div>
+            <button class="btn-outline-custom mt-1">Añadir</button>
+          </div>
+        </div>
+        <!-- Card 5 -->
+        <div class="col-6 col-md-4 col-lg-3">
+          <div class="card h-100 text-center p-3 card-hover border-0 shadow-sm rounded-4">
+            <svg viewBox="0 0 100 100" style="width:100px; height:100px; margin:0 auto 0.6rem;">
+              <rect width="100" height="100" fill="#eaf0f8" rx="12" />
+              <rect x="15" y="15" width="70" height="50" fill="#2563eb" rx="4" opacity="0.3" />
+              <rect x="40" y="65" width="20" height="20" fill="#2563eb" rx="2" opacity="0.2" />
+              <rect x="45" y="75" width="10" height="10" fill="#2563eb" rx="2" opacity="0.3" />
+            </svg>
+            <h5 class="card-title fs-6 fw-semibold">Monitor 4K</h5>
+            <div class="star-gold">★★★★★</div>
+            <div class="fw-bold fs-5">$5399 <small class="fw-normal text-secondary small">MXN</small></div>
+            <button class="btn-outline-custom mt-1">Añadir</button>
+          </div>
+        </div>
+        <!-- Card 6 -->
+        <div class="col-6 col-md-4 col-lg-3">
+          <div class="card h-100 text-center p-3 card-hover border-0 shadow-sm rounded-4">
+            <svg viewBox="0 0 100 100" style="width:100px; height:100px; margin:0 auto 0.6rem;">
+              <rect width="100" height="100" fill="#eaf0f8" rx="12" />
+              <rect x="20" y="30" width="60" height="40" fill="#2563eb" rx="15" opacity="0.3" />
+              <circle cx="35" cy="50" r="6" fill="#2563eb" opacity="0.5" />
+              <circle cx="65" cy="50" r="6" fill="#2563eb" opacity="0.5" />
+              <rect x="25" y="68" width="10" height="8" fill="#2563eb" rx="2" opacity="0.4" />
+              <rect x="65" y="68" width="10" height="8" fill="#2563eb" rx="2" opacity="0.4" />
+            </svg>
+            <h5 class="card-title fs-6 fw-semibold">Gamepad Pro</h5>
+            <div class="star-gold">★★★★★</div>
+            <div class="fw-bold fs-5">$1059 <small class="fw-normal text-secondary small">MXN</small></div>
+            <button class="btn-outline-custom mt-1">Añadir</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- RESEÑAS con Bootstrap -->
+    <section id="reseñas" class="bg-white rounded-4 border p-4 mt-5">
+      <div class="d-flex flex-wrap align-items-center justify-content-between mb-4">
+        <h3 class="fw-bold fs-2 m-0">Reseñas de clientes</h3>
+        <span class="badge-soft"><i class="fas fa-star text-warning"></i> 4.8 · 284 opiniones</span>
+      </div>
+      <div class="row g-4">
+        <!-- review 1 -->
+        <div class="col-md-6 col-lg-3">
+          <div class="bg-light p-3 rounded-4 border h-100">
+            <div class="d-flex align-items-center gap-2 mb-1">
+              <span class="avatar-circle">MG</span>
+              <span class="fw-semibold">María G.</span>
+              <span class="text-secondary small ms-auto">hace 2 días</span>
+            </div>
+            <div class="star-gold mb-1">★★★★★</div>
+            <p class="mb-0 small">"Excelente laptop, rendimiento impecable. Llegó muy rápido."</p>
+          </div>
+        </div>
+        <!-- review 2 -->
+        <div class="col-md-6 col-lg-3">
+          <div class="bg-light p-3 rounded-4 border h-100">
+            <div class="d-flex align-items-center gap-2 mb-1">
+              <span class="avatar-circle">JR</span>
+              <span class="fw-semibold">Javier R.</span>
+              <span class="text-secondary small ms-auto">hace 5 días</span>
+            </div>
+            <div class="star-gold mb-1">★★★★★</div>
+            <p class="mb-0 small">"Los audífonos suenan increíble, la cancelación de ruido es top."</p>
+          </div>
+        </div>
+        <!-- review 3 -->
+        <div class="col-md-6 col-lg-3">
+          <div class="bg-light p-3 rounded-4 border h-100">
+            <div class="d-flex align-items-center gap-2 mb-1">
+              <span class="avatar-circle">LP</span>
+              <span class="fw-semibold">Laura P.</span>
+              <span class="text-secondary small ms-auto">hace 1 semana</span>
+            </div>
+            <div class="star-gold mb-1">★★★★★</div>
+            <p class="mb-0 small">"El smartwatch es justo lo que buscaba, diseño moderno y funcional."</p>
+          </div>
+        </div>
+        <!-- review 4 -->
+        <div class="col-md-6 col-lg-3">
+          <div class="bg-light p-3 rounded-4 border h-100">
+            <div class="d-flex align-items-center gap-2 mb-1">
+              <span class="avatar-circle">CM</span>
+              <span class="fw-semibold">Carlos M.</span>
+              <span class="text-secondary small ms-auto">hace 2 semanas</span>
+            </div>
+            <div class="star-gold mb-1">★★★★★</div>
+            <p class="mb-0 small">"Monitor 4K impecable, colores vivos y entrega rápida."</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="footer container py-4 mt-4 text-center">
+    <p class="mb-0">© 2026 ElectroStore — Tienda de electrónicos</p>
+  </footer>
+
+  <!-- Bootstrap JS (opcional, para funcionalidades extra) -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
