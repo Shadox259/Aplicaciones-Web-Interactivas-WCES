@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ElectroStore · Bootstrap</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    body {
+      background: #f5f7fa;
+      color: #1a2634;
+    }
+    .logo {
+      font-weight: 700;
+      font-size: 1.6rem;
+      color: #0b1a2e;
+    }
+    .logo span {
+      color: #2563eb;
+    }
+    .btn-outline-custom {
+      border: 1.5px solid #d0d9e6;
+      background: transparent;
+      border-radius: 30px;
+      padding: 0.3rem 1.4rem;
+      font-weight: 500;
+      font-size: 0.85rem;
+      transition: 0.2s;
+    }
+    .btn-outline-custom:hover {
+      background: #2563eb;
+      border-color: #2563eb;
+      color: white;
+    }
+    .star-gold {
+      color: #f59e0b;
+      letter-spacing: 2px;
+      font-size: 0.85rem;
+    }
+    .badge-soft {
+      background: #f1f5f9;
+      padding: 0.3rem 1.2rem;
+      border-radius: 50px;
+      font-weight: 600;
+      font-size: 0.9rem;
+    }
+    .avatar-circle {
+      background: #dbe7fe;
+      border-radius: 50%;
+      width: 36px;
+      height: 36px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      color: #2563eb;
+    }
+    .card-hover {
+      transition: 0.2s;
+      border: 1px solid #edf2f7;
+    }
+    .card-hover:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.04);
+    }
+    .footer {
+      border-top: 1px solid #e2e8f0;
+      color: #3d4f6a;
+    }
+    .hero-svg-bg {
+      background: #eaf0f8;
+      border-radius: 1.5rem 0 0 1.5rem;
+    }
+    @media (max-width: 576px) {
+      .hero-svg-bg {
+        border-radius: 1.5rem 1.5rem 0 0;
+      }
+    }
+
+    .service-card {
+      transition: 0.2s;
+      border: 1px solid #edf2f7;
+    }
+    .service-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.04);
+    }
+    .badge-service {
+      font-size: 0.7rem;
+      font-weight: 600;
+      padding: 0.25rem 0.8rem;
+      border-radius: 50px;
+      background: #eaf0f8;
+      color: #1a2634;
+    }
+    .badge-service.popular {
+      background: #dbe7fe;
+      color: #2563eb;
+    }
+    .badge-service.promocion {
+      background: #fef3c7;
+      color: #b45309;
+    }
+    .badge-service.nuevo {
+      background: #d1fae5;
+      color: #065f46;
+    }
+
+    .faq-item {
+      border-bottom: 1px solid #e2e8f0;
+      padding: 1rem 0;
+    }
+    .faq-item:last-child {
+      border-bottom: 0;
+    }
+    .faq-item .faq-question {
+      font-weight: 600;
+      color: #0b1a2e;
+      cursor: default;
+    }
+    .faq-item .faq-answer {
+      color: #3d4f6a;
+      font-size: 0.95rem;
+      margin-top: 0.3rem;
+    }
+
+    /* === ESTILOS PARA PAGINACIÓN === */
+    .pagination-custom .page-link {
+      color: #1a2634;
+      border: 1px solid #e2e8f0;
+      border-radius: 30px;
+      margin: 0 2px;
+      padding: 0.3rem 0.9rem;
+      font-size: 0.9rem;
+    }
+    .pagination-custom .page-link:hover {
+      background: #2563eb;
+      color: white;
+      border-color: #2563eb;
+    }
+    .pagination-custom .page-item.active .page-link {
+      background: #2563eb;
+      color: white;
+      border-color: #2563eb;
+    }
+
+    /* === ESTILOS PARA CARRUSEL === */
+    .carousel-item img {
+      width: 100%;
+      height: 300px;
+      object-fit: cover;
+      border-radius: 12px;
+    }
+    .carousel-control-prev-icon,
+    .carousel-control-next-icon {
+      background-color: rgba(0, 0, 0, 0.3);
+      border-radius: 50%;
+      padding: 20px;
+    }
+    .carousel-indicators [data-bs-target] {
+      background-color: #2563eb;
+    }
+    @media (max-width: 576px) {
+      .carousel-item img {
+        height: 180px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="bg-white border-bottom sticky-top" style="z-index: 10;">
+    <div class="container d-flex flex-wrap align-items-center justify-content-between py-3">
+      <div class="logo">Electro<span>Store</span></div>
+      <nav class="d-flex flex-wrap gap-4">
+        <a href="#" class="text-decoration-none text-dark fw-medium">Inicio</a>
+        <a href="#productos" class="text-decoration-none text-dark fw-medium">Productos</a>
+        <a href="#servicios" class="text-decoration-none text-dark fw-medium">Servicios</a>
+        <a href="#faq" class="text-decoration-none text-dark fw-medium">FAQ</a>
+        <a href="#reseñas" class="text-decoration-none text-dark fw-medium">Reseñas</a>
+        <a href="#" class="text-decoration-none text-dark fw-medium">Ofertas</a>
+      </nav>
+      <div class="bg-light rounded-pill px-3 py-1 fw-semibold small">Carrito</div>
+    </div>
+  </header>
+
+  <div class="container my-4">
+    <div id="carouselElectro" class="carousel slide shadow-sm rounded-4 overflow-hidden" data-bs-ride="carousel">
+      <div class="carousel-indicators">
+        <button type="button" data-bs-target="#carouselElectro" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+        <button type="button" data-bs-target="#carouselElectro" data-bs-slide-to="1" aria-label="Slide 2"></button>
+      </div>
+      <div class="carousel-inner">
+        <div class="carousel-item active">
+          <img src="https://picsum.photos/seed/electro1/1200/400" class="d-block w-100" alt="Oferta en laptops">
+          <div class="carousel-caption d-none d-md-block bg-dark bg-opacity-50 rounded-3 p-3">
+            <h5>Ofertas en laptops</h5>
+            <p>Hasta 30% de descuento en equipos seleccionados.</p>
+          </div>
+        </div>
+        <div class="carousel-item">
+          <img src="https://picsum.photos/seed/electro2/1200/400" class="d-block w-100" alt="Audífonos y gadgets">
+          <div class="carousel-caption d-none d-md-block bg-dark bg-opacity-50 rounded-3 p-3">
+            <h5>Accesorios y gadgets</h5>
+            <p>Los mejores audífonos y smartwatches te esperan.</p>
+          </div>
+        </div>
+      </div>
+      <button class="carousel-control-prev" type="button" data-bs-target="#carouselElectro" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Anterior</span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#carouselElectro" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Siguiente</span>
+      </button>
+    </div>
+  </div>
+
+  <main class="container my-4">
+    <section class="row g-0 bg-white rounded-4 shadow-sm overflow-hidden mb-5">
+      <div class="col-md-5 d-flex align-items-center justify-content-center hero-svg-bg p-4">
+        <svg viewBox="0 0 300 180" xmlns="http://www.w3.org/2000/svg" style="max-width:100%; height:auto;">
+          <rect width="300" height="180" fill="#d9e2ef" rx="16" />
+          <rect x="60" y="40" width="180" height="120" fill="#2563eb" rx="8" opacity="0.15" />
+          <rect x="90" y="60" width="120" height="80" fill="#2563eb" rx="6" opacity="0.25" />
+          <rect x="120" y="80" width="60" height="40" fill="#2563eb" rx="4" opacity="0.4" />
+          <circle cx="250" cy="30" r="20" fill="#2563eb" opacity="0.1" />
+          <circle cx="30" cy="150" r="28" fill="#2563eb" opacity="0.08" />
+        </svg>
+      </div>
+      <div class="col-md-7 p-4 p-md-5 d-flex flex-column justify-content-center">
+        <h2 class="display-6 fw-bold">Innovación y calidad</h2>
+        <p class="text-secondary fs-5">Los mejores dispositivos electrónicos al mejor precio. Encuentra todo lo que necesitas.</p>
+        <div><button class="btn btn-primary rounded-pill px-4 py-2 fw-semibold">Ver ofertas</button></div>
+      </div>
+    </section>
+
+    <section id="servicios" class="mb-5">
+      <h3 class="fw-bold fs-2 mb-4">Nuestros servicios</h3>
+      <div class="row g-4">
+        <div class="col-md-4">
+          <div class="card service-card h-100 border-0 shadow-sm rounded-4 p-3">
+            <div class="d-flex justify-content-between align-items-start">
+              <h5 class="card-title fw-semibold fs-5">Servicio 1</h5>
+              <span class="badge-service nuevo">Nuevo</span>
+            </div>
+            <p class="card-text text-secondary small">Descripción del servicio 1.</p>
+            <div class="mt-auto">
+              <button class="btn-outline-custom">Ver más</button>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card service-card h-100 border-0 shadow-sm rounded-4 p-3">
+            <div class="d-flex justify-content-between align-items-start">
+              <h5 class="card-title fw-semibold fs-5">Servicio 2</h5>
+              <span class="badge-service popular">Popular</span>
+            </div>
+            <p class="card-text text-secondary small">Descripción del servicio 2.</p>
+            <div class="mt-auto">
+              <button class="btn-outline-custom">Ver más</button>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card service-card h-100 border-0 shadow-sm rounded-4 p-3">
+            <div class="d-flex justify-content-between align-items-start">
+              <h5 class="card-title fw-semibold fs-5">Servicio 3</h5>
+              <span class="badge-service promocion">Promoción</span>
+            </div>
+            <p class="card-text text-secondary small">Descripción del servicio 3.</p>
+            <div class="mt-auto">
+              <button class="btn-outline-custom">Ver más</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="faq" class="bg-white rounded-4 border p-4 mb-5">
+      <h3 class="fw-bold fs-2 mb-4">Preguntas frecuentes</h3>
+      <div class="faq-item">
+        <div class="faq-question">Pregunta frecuente 1</div>
+        <div class="faq-answer">Respuesta a la pregunta frecuente 1.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question">Pregunta frecuente 2</div>
+        <div class="faq-answer">Respuesta a la pregunta frecuente 2.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question">Pregunta frecuente 3</div>
+        <div class="faq-answer">Respuesta a la pregunta frecuente 3.</div>
+      </div>
+
+      <nav aria-label="Navegación de preguntas frecuentes" class="mt-4">
+        <ul class="pagination pagination-custom justify-content-center mb-0">
+          <li class="page-item">
+            <a class="page-link" href="#" aria-label="Anterior">
+              <span aria-hidden="true">Anterior</span>
+            </a>
+          </li>
+          <li class="page-item active"><a class="page-link" href="#">1</a></li>
+          <li class="page-item"><a class="page-link" href="#">2</a></li>
+          <li class="page-item"><a class="page-link" href="#">3</a></li>
+          <li class="page-item">
+            <a class="page-link" href="#" aria-label="Siguiente">
+              <span aria-hidden="true">Siguiente</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </section>
+    <section id="productos">
+    <h3 class="fw-bold fs-2 mb-4">Productos destacados</h3>
+    <div class="row g-4" id="contenedorProductos">
+        <!-- Laptop Ultra -->
+        <div class="col-6 col-md-4 col-lg-3 producto-item" data-categorias="laptops" data-id="1">
+            <div class="card h-100 text-center p-3 card-hover border-0 shadow-sm rounded-4">
+                <svg viewBox="0 0 100 100" style="width:100px; height:100px; margin:0 auto 0.6rem;">
+                    <rect width="100" height="100" fill="#eaf0f8" rx="12" />
+                    <rect x="15" y="20" width="70" height="50" fill="#2563eb" rx="4" opacity="0.3" />
+                    <rect x="25" y="75" width="50" height="10" fill="#2563eb" rx="2" opacity="0.2" />
+                    <rect x="35" y="30" width="30" height="30" fill="#2563eb" rx="2" opacity="0.5" />
+                </svg>
+                <h5 class="card-title fs-6 fw-semibold">Laptop Ultra</h5>
+                <div class="star-gold">★★★★☆</div>
+                <div class="fw-bold fs-5">$15999 <small class="fw-normal text-secondary small">MXN</small></div>
+                <button class="btn-outline-custom mt-1">Añadir</button>
+            </div>
+        </div>
+
+        <!-- Smartphone Pro -->
+        <div class="col-6 col-md-4 col-lg-3 producto-item" data-categorias="smartphones" data-id="2">
+            <div class="card h-100 text-center p-3 card-hover border-0 shadow-sm rounded-4">
+                <svg viewBox="0 0 100 100" style="width:100px; height:100px; margin:0 auto 0.6rem;">
+                    <rect width="100" height="100" fill="#eaf0f8" rx="12" />
+                    <rect x="30" y="10" width="40" height="80" fill="#2563eb" rx="6" opacity="0.3" />
+                    <rect x="38" y="18" width="24" height="50" fill="#2563eb" rx="3" opacity="0.5" />
+                    <circle cx="50" cy="78" r="5" fill="#2563eb" opacity="0.2" />
+                </svg>
+                <h5 class="card-title fs-6 fw-semibold">Smartphone Pro</h5>
+                <div class="star-gold">★★★★★</div>
+                <div class="fw-bold fs-5">$7699 <small class="fw-normal text-secondary small">MXN</small></div>
+                <button class="btn-outline-custom mt-1">Añadir</button>
+            </div>
+        </div>
+
+        <!-- Audífonos ANC -->
+        <div class="col-6 col-md-4 col-lg-3 producto-item" data-categorias="audio" data-id="3">
+            <div class="card h-100 text-center p-3 card-hover border-0 shadow-sm rounded-4">
+                <svg viewBox="0 0 100 100" style="width:100px; height:100px; margin:0 auto 0.6rem;">
+                    <rect width="100" height="100" fill="#eaf0f8" rx="12" />
+                    <rect x="20" y="25" width="60" height="50" fill="#2563eb" rx="25" opacity="0.3" />
+                    <rect x="15" y="45" width="12" height="30" fill="#2563eb" rx="4" opacity="0.4" />
+                    <rect x="73" y="45" width="12" height="30" fill="#2563eb" rx="4" opacity="0.4" />
+                </svg>
+                <h5 class="card-title fs-6 fw-semibold">Audífonos ANC</h5>
+                <div class="star-gold">★★★★★</div>
+                <div class="fw-bold fs-5">$2149 <small class="fw-normal text-secondary small">MXN</small></div>
+                <button class="btn-outline-custom mt-1">Añadir</button>
+            </div>
+        </div>
+
+        <!-- Smartwatch -->
+        <div class="col-6 col-md-4 col-lg-3 producto-item" data-categorias="wearables" data-id="4">
+            <div class="card h-100 text-center p-3 card-hover border-0 shadow-sm rounded-4">
+                <svg viewBox="0 0 100 100" style="width:100px; height:100px; margin:0 auto 0.6rem;">
+                    <rect width="100" height="100" fill="#eaf0f8" rx="12" />
+                    <rect x="25" y="30" width="50" height="40" fill="#2563eb" rx="10" opacity="0.3" />
+                    <rect x="35" y="20" width="30" height="10" fill="#2563eb" rx="3" opacity="0.4" />
+                    <rect x="35" y="70" width="30" height="10" fill="#2563eb" rx="3" opacity="0.4" />
+                </svg>
+                <h5 class="card-title fs-6 fw-semibold">Smartwatch</h5>
+                <div class="star-gold">★★★★☆</div>
+                <div class="fw-bold fs-5">$2049 <small class="fw-normal text-secondary small">MXN</small></div>
+                <button class="btn-outline-custom mt-1">Añadir</button>
+            </div>
+        </div>
+
+        <!-- Monitor 4K -->
+        <div class="col-6 col-md-4 col-lg-3 producto-item" data-categorias="monitores" data-id="5">
+            <div class="card h-100 text-center p-3 card-hover border-0 shadow-sm rounded-4">
+                <svg viewBox="0 0 100 100" style="width:100px; height:100px; margin:0 auto 0.6rem;">
+                    <rect width="100" height="100" fill="#eaf0f8" rx="12" />
+                    <rect x="15" y="15" width="70" height="50" fill="#2563eb" rx="4" opacity="0.3" />
+                    <rect x="40" y="65" width="20" height="20" fill="#2563eb" rx="2" opacity="0.2" />
+                    <rect x="45" y="75" width="10" height="10" fill="#2563eb" rx="2" opacity="0.3" />
+                </svg>
+                <h5 class="card-title fs-6 fw-semibold">Monitor 4K</h5>
+                <div class="star-gold">★★★★★</div>
+                <div class="fw-bold fs-5">$5399 <small class="fw-normal text-secondary small">MXN</small></div>
+                <button class="btn-outline-custom mt-1">Añadir</button>
+            </div>
+        </div>
+
+        <!-- Gamepad Pro -->
+        <div class="col-6 col-md-4 col-lg-3 producto-item" data-categorias="gaming" data-id="6">
+            <div class="card h-100 text-center p-3 card-hover border-0 shadow-sm rounded-4">
+                <svg viewBox="0 0 100 100" style="width:100px; height:100px; margin:0 auto 0.6rem;">
+                    <rect width="100" height="100" fill="#eaf0f8" rx="12" />
+                    <rect x="20" y="30" width="60" height="40" fill="#2563eb" rx="15" opacity="0.3" />
+                    <circle cx="35" cy="50" r="6" fill="#2563eb" opacity="0.5" />
+                    <circle cx="65" cy="50" r="6" fill="#2563eb" opacity="0.5" />
+                    <rect x="25" y="68" width="10" height="8" fill="#2563eb" rx="2" opacity="0.4" />
+                    <rect x="65" y="68" width="10" height="8" fill="#2563eb" rx="2" opacity="0.4" />
+                </svg>
+                <h5 class="card-title fs-6 fw-semibold">Gamepad Pro</h5>
+                <div class="star-gold">★★★★★</div>
+                <div class="fw-bold fs-5">$1059 <small class="fw-normal text-secondary small">MXN</small></div>
+                <button class="btn-outline-custom mt-1">Añadir</button>
+            </div>
+        </div>
+    </div>
+</section>
+
+    <section id="reseñas" class="bg-white rounded-4 border p-4 mt-5">
+      <div class="d-flex flex-wrap align-items-center justify-content-between mb-4">
+        <h3 class="fw-bold fs-2 m-0">Reseñas de clientes</h3>
+        <span class="badge-soft"><i class="fas fa-star text-warning"></i> 4.8 · 284 opiniones</span>
+      </div>
+      <div class="row g-4">
+        <div class="col-md-6 col-lg-3">
+          <div class="bg-light p-3 rounded-4 border h-100">
+            <div class="d-flex align-items-center gap-2 mb-1">
+              <span class="avatar-circle">MG</span>
+              <span class="fw-semibold">María G.</span>
+              <span class="text-secondary small ms-auto">hace 2 días</span>
+            </div>
+            <div class="star-gold mb-1">★★★★★</div>
+            <p class="mb-0 small">"Excelente laptop, rendimiento impecable. Llegó muy rápido."</p>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-3">
+          <div class="bg-light p-3 rounded-4 border h-100">
+            <div class="d-flex align-items-center gap-2 mb-1">
+              <span class="avatar-circle">JR</span>
+              <span class="fw-semibold">Javier R.</span>
+              <span class="text-secondary small ms-auto">hace 5 días</span>
+            </div>
+            <div class="star-gold mb-1">★★★★★</div>
+            <p class="mb-0 small">"Los audífonos suenan increíble, la cancelación de ruido es top."</p>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-3">
+          <div class="bg-light p-3 rounded-4 border h-100">
+            <div class="d-flex align-items-center gap-2 mb-1">
+              <span class="avatar-circle">LP</span>
+              <span class="fw-semibold">Laura P.</span>
+              <span class="text-secondary small ms-auto">hace 1 semana</span>
+            </div>
+            <div class="star-gold mb-1">★★★★★</div>
+            <p class="mb-0 small">"El smartwatch es justo lo que buscaba, diseño moderno y funcional."</p>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-3">
+          <div class="bg-light p-3 rounded-4 border h-100">
+            <div class="d-flex align-items-center gap-2 mb-1">
+              <span class="avatar-circle">CM</span>
+              <span class="fw-semibold">Carlos M.</span>
+              <span class="text-secondary small ms-auto">hace 2 semanas</span>
+            </div>
+            <div class="star-gold mb-1">★★★★★</div>
+            <p class="mb-0 small">"Monitor 4K impecable, colores vivos y entrega rápida."</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="footer container py-4 mt-4 text-center">
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script>
+    $(function() {
+    console.log('🔍 Buscador por etiquetas iniciado');
+    console.log('📦 Productos disponibles:', $('.producto-item').length);
+    
+    /* ============================================ */
+    /* FUNCIONES PRINCIPALES                       */
+    /* ============================================ */
+    
+    // Función de filtrado
+    function filtrarProductos() {
+        const categoria = $('.filtro-btn.active').data('categoria') || 'todos';
+        const busqueda = $('#buscadorTexto').val().toLowerCase().trim();
+        const $productos = $('.producto-item');
+        let visibles = 0;
+        
+        $productos.each(function() {
+            const $prod = $(this);
+            const categorias = $prod.data('categorias').split(',');
+            const nombre = $prod.find('.card-title').text().toLowerCase();
+            
+            const coincideCategoria = categoria === 'todos' || categorias.includes(categoria);
+            const coincideBusqueda = busqueda === '' || nombre.includes(busqueda);
+            const mostrar = coincideCategoria && coincideBusqueda;
+            
+            if (mostrar) {
+                $prod.fadeIn(300);
+                visibles++;
+            } else {
+                $prod.fadeOut(300);
+            }
+        });
+        
+        actualizarResultados(visibles);
+    }
+    
+    // Actualizar contador y mensaje de error
+    function actualizarResultados(visibles) {
+        const $mensajeError = $('#mensajeError');
+        const $contador = $('#contadorResultados');
+        const $numeroProductos = $('#numeroProductos');
+        
+        $numeroProductos.text(visibles);
+        
+        if (visibles === 0) {
+            $mensajeError.fadeIn(400);
+            $contador.hide();
+        } else {
+            $mensajeError.fadeOut(400);
+            $contador.show();
+        }
+    }
+    
+    /* ============================================ */
+    /* EVENTOS                                    */
+    /* ============================================ */
+    
+    // 1. Botones de filtro por categoría
+    $('.filtro-btn').on('click', function() {
+        // Cambiar estilo de botones
+        $('.filtro-btn').each(function() {
+            $(this).removeClass('btn-primary').addClass('btn-outline-secondary');
+        });
+        $(this).removeClass('btn-outline-secondary').addClass('btn-primary');
+        
+        filtrarProductos();
+    });
+    
+    // 2. Búsqueda por texto
+    $('#btnBuscarTexto').on('click', function() {
+        filtrarProductos();
+    });
+    
+    // 3. Búsqueda con tecla Enter
+    $('#buscadorTexto').on('keypress', function(e) {
+        if (e.which === 13) {
+            $('#btnBuscarTexto').click();
+        }
+    });
+    
+    // 4. Búsqueda en tiempo real (con debounce)
+    let timeoutBusqueda;
+    $('#buscadorTexto').on('input', function() {
+        clearTimeout(timeoutBusqueda);
+        timeoutBusqueda = setTimeout(function() {
+            filtrarProductos();
+            
+            // Mostrar/ocultar botón de limpiar
+            if ($('#buscadorTexto').val().length > 0) {
+                $('#btnLimpiarBusqueda').show(200);
+            } else {
+                $('#btnLimpiarBusqueda').hide(200);
+            }
+        }, 300);
+    });
+    
+    // 5. Limpiar búsqueda
+    $('#btnLimpiarBusqueda').on('click', function() {
+        $('#buscadorTexto').val('').trigger('input');
+        $(this).hide(200);
+        filtrarProductos();
+    });
+    
+    // 6. Ver todos los productos (desde mensaje de error)
+    $('#btnVerTodos').on('click', function() {
+        // Activar el botón "Todos"
+        $('.filtro-btn').each(function() {
+            $(this).removeClass('btn-primary').addClass('btn-outline-secondary');
+        });
+        $('.filtro-btn[data-categoria="todos"]')
+            .removeClass('btn-outline-secondary')
+            .addClass('btn-primary');
+        
+        $('#buscadorTexto').val('').trigger('input');
+        filtrarProductos();
+    });
+    
+    /* ============================================ */
+    /* EFECTOS ADICIONALES                        */
+    /* ============================================ */
+    
+    // Efecto hover en tarjetas (mejora del existente)
+    $('.producto-item .card').on('mouseenter', function() {
+        $(this).css('transform', 'translateY(-6px)');
+    }).on('mouseleave', function() {
+        $(this).css('transform', 'translateY(0)');
+    });
+    
+    /* ============================================ */
+    /* INICIALIZACIÓN                              */
+    /* ============================================ */
+    
+    // Mostrar todos los productos al cargar
+    actualizarResultados($('.producto-item').length);
+    
+    console.log('✅ Buscador listo');
+    console.log('🏷️ Categorías:', ['todos', 'laptops', 'smartphones', 'audio', 'wearables', 'monitores', 'gaming']);
+});
+  </script>
+</body>
+</html>
