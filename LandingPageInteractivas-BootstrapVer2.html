@@ -125,7 +125,6 @@
       margin-top: 0.3rem;
     }
 
-    /* === ESTILOS PARA PAGINACIÓN === */
     .pagination-custom .page-link {
       color: #1a2634;
       border: 1px solid #e2e8f0;
@@ -145,7 +144,6 @@
       border-color: #2563eb;
     }
 
-    /* === ESTILOS PARA CARRUSEL === */
     .carousel-item img {
       width: 100%;
       height: 300px;
@@ -314,7 +312,6 @@
     <section id="productos">
     <h3 class="fw-bold fs-2 mb-4">Productos destacados</h3>
     <div class="row g-4" id="contenedorProductos">
-        <!-- Laptop Ultra -->
         <div class="col-6 col-md-4 col-lg-3 producto-item" data-categorias="laptops" data-id="1">
             <div class="card h-100 text-center p-3 card-hover border-0 shadow-sm rounded-4">
                 <svg viewBox="0 0 100 100" style="width:100px; height:100px; margin:0 auto 0.6rem;">
@@ -330,7 +327,6 @@
             </div>
         </div>
 
-        <!-- Smartphone Pro -->
         <div class="col-6 col-md-4 col-lg-3 producto-item" data-categorias="smartphones" data-id="2">
             <div class="card h-100 text-center p-3 card-hover border-0 shadow-sm rounded-4">
                 <svg viewBox="0 0 100 100" style="width:100px; height:100px; margin:0 auto 0.6rem;">
@@ -346,7 +342,6 @@
             </div>
         </div>
 
-        <!-- Audífonos ANC -->
         <div class="col-6 col-md-4 col-lg-3 producto-item" data-categorias="audio" data-id="3">
             <div class="card h-100 text-center p-3 card-hover border-0 shadow-sm rounded-4">
                 <svg viewBox="0 0 100 100" style="width:100px; height:100px; margin:0 auto 0.6rem;">
@@ -362,7 +357,6 @@
             </div>
         </div>
 
-        <!-- Smartwatch -->
         <div class="col-6 col-md-4 col-lg-3 producto-item" data-categorias="wearables" data-id="4">
             <div class="card h-100 text-center p-3 card-hover border-0 shadow-sm rounded-4">
                 <svg viewBox="0 0 100 100" style="width:100px; height:100px; margin:0 auto 0.6rem;">
@@ -378,7 +372,6 @@
             </div>
         </div>
 
-        <!-- Monitor 4K -->
         <div class="col-6 col-md-4 col-lg-3 producto-item" data-categorias="monitores" data-id="5">
             <div class="card h-100 text-center p-3 card-hover border-0 shadow-sm rounded-4">
                 <svg viewBox="0 0 100 100" style="width:100px; height:100px; margin:0 auto 0.6rem;">
@@ -393,8 +386,7 @@
                 <button class="btn-outline-custom mt-1">Añadir</button>
             </div>
         </div>
-
-        <!-- Gamepad Pro -->
+      
         <div class="col-6 col-md-4 col-lg-3 producto-item" data-categorias="gaming" data-id="6">
             <div class="card h-100 text-center p-3 card-hover border-0 shadow-sm rounded-4">
                 <svg viewBox="0 0 100 100" style="width:100px; height:100px; margin:0 auto 0.6rem;">
@@ -479,11 +471,6 @@
     console.log('🔍 Buscador por etiquetas iniciado');
     console.log('📦 Productos disponibles:', $('.producto-item').length);
     
-    /* ============================================ */
-    /* FUNCIONES PRINCIPALES                       */
-    /* ============================================ */
-    
-    // Función de filtrado
     function filtrarProductos() {
         const categoria = $('.filtro-btn.active').data('categoria') || 'todos';
         const busqueda = $('#buscadorTexto').val().toLowerCase().trim();
@@ -510,7 +497,6 @@
         actualizarResultados(visibles);
     }
     
-    // Actualizar contador y mensaje de error
     function actualizarResultados(visibles) {
         const $mensajeError = $('#mensajeError');
         const $contador = $('#contadorResultados');
@@ -526,14 +512,7 @@
             $contador.show();
         }
     }
-    
-    /* ============================================ */
-    /* EVENTOS                                    */
-    /* ============================================ */
-    
-    // 1. Botones de filtro por categoría
     $('.filtro-btn').on('click', function() {
-        // Cambiar estilo de botones
         $('.filtro-btn').each(function() {
             $(this).removeClass('btn-primary').addClass('btn-outline-secondary');
         });
@@ -542,19 +521,16 @@
         filtrarProductos();
     });
     
-    // 2. Búsqueda por texto
     $('#btnBuscarTexto').on('click', function() {
         filtrarProductos();
     });
     
-    // 3. Búsqueda con tecla Enter
     $('#buscadorTexto').on('keypress', function(e) {
         if (e.which === 13) {
             $('#btnBuscarTexto').click();
         }
     });
     
-    // 4. Búsqueda en tiempo real (con debounce)
     let timeoutBusqueda;
     $('#buscadorTexto').on('input', function() {
         clearTimeout(timeoutBusqueda);
@@ -570,14 +546,12 @@
         }, 300);
     });
     
-    // 5. Limpiar búsqueda
     $('#btnLimpiarBusqueda').on('click', function() {
         $('#buscadorTexto').val('').trigger('input');
         $(this).hide(200);
         filtrarProductos();
     });
     
-    // 6. Ver todos los productos (desde mensaje de error)
     $('#btnVerTodos').on('click', function() {
         // Activar el botón "Todos"
         $('.filtro-btn').each(function() {
@@ -591,22 +565,11 @@
         filtrarProductos();
     });
     
-    /* ============================================ */
-    /* EFECTOS ADICIONALES                        */
-    /* ============================================ */
-    
-    // Efecto hover en tarjetas (mejora del existente)
     $('.producto-item .card').on('mouseenter', function() {
         $(this).css('transform', 'translateY(-6px)');
     }).on('mouseleave', function() {
         $(this).css('transform', 'translateY(0)');
     });
-    
-    /* ============================================ */
-    /* INICIALIZACIÓN                              */
-    /* ============================================ */
-    
-    // Mostrar todos los productos al cargar
     actualizarResultados($('.producto-item').length);
     
     console.log('✅ Buscador listo');
