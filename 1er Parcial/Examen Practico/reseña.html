@@ -1,0 +1,1147 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MovieReviews · Detalle</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+    <style>
+        :root {
+            --primary: #e50914;
+            --primary-dark: #b20710;
+            --dark: #141414;
+            --dark-card: #1a1a1a;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #0f0f0f;
+            color: #e5e5e5;
+            padding-top: 70px;
+        }
+
+        .navbar-movie {
+            background: var(--dark);
+            border-bottom: 2px solid var(--primary);
+            padding: 12px 0;
+        }
+
+        .navbar-movie .navbar-brand {
+            color: #fff;
+            font-weight: 800;
+            font-size: 1.5rem;
+        }
+
+        .navbar-movie .navbar-brand i {
+            color: var(--primary);
+            margin-right: 10px;
+        }
+
+        .navbar-movie .nav-link {
+            color: #b3b3b3 !important;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .navbar-movie .nav-link:hover,
+        .navbar-movie .nav-link.active {
+            color: #fff !important;
+        }
+
+        .navbar-movie .btn-favoritos {
+            background: transparent;
+            border: 1px solid #333;
+            color: #b3b3b3;
+            border-radius: 30px;
+            padding: 6px 18px;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .navbar-movie .btn-favoritos:hover {
+            border-color: var(--primary);
+            color: #fff;
+        }
+
+        .navbar-movie .btn-favoritos .badge-contador {
+            position: absolute;
+            top: -6px;
+            right: -6px;
+            background: var(--primary);
+            color: #fff;
+            font-size: 0.6rem;
+            padding: 2px 6px;
+            border-radius: 50%;
+        }
+
+        .navbar-movie .btn-favoritos .badge-contador.d-none {
+            display: none !important;
+        }
+
+        .detail-container {
+            padding: 30px 0;
+        }
+
+        .detail-poster {
+            width: 100%;
+            border-radius: 12px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .detail-title {
+            font-weight: 800;
+            font-size: 2.5rem;
+            color: #fff;
+            margin-bottom: 5px;
+        }
+
+        .detail-meta {
+            color: #999;
+            font-size: 1rem;
+            margin-bottom: 15px;
+        }
+
+        .detail-meta .separator {
+            margin: 0 8px;
+            color: #555;
+        }
+
+        .detail-rating {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+        }
+
+        .detail-rating .stars {
+            color: #f5c518;
+            font-size: 1.3rem;
+            letter-spacing: 2px;
+        }
+
+        .detail-rating .rating-value {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: #fff;
+        }
+
+        .detail-rating .votes {
+            color: #777;
+            font-size: 0.9rem;
+        }
+
+        .detail-genres {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+
+        .detail-genres .badge-genero {
+            background: #2a2a2a;
+            border: 1px solid #444;
+            color: #ccc;
+            padding: 5px 14px;
+            border-radius: 30px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .detail-description {
+            color: #bbb;
+            font-size: 1.05rem;
+            line-height: 1.7;
+            margin-bottom: 25px;
+        }
+
+        .detail-section {
+            background: var(--dark-card);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+            border: 1px solid #2a2a2a;
+        }
+
+        .detail-section h5 {
+            color: #fff;
+            font-weight: 700;
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+        }
+
+        .detail-section h5 i {
+            color: var(--primary);
+            margin-right: 8px;
+        }
+
+        .detail-section .info-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid #2a2a2a;
+        }
+
+        .detail-section .info-row:last-child {
+            border-bottom: 0;
+        }
+
+        .detail-section .info-row .label {
+            color: #777;
+            font-weight: 500;
+        }
+
+        .detail-section .info-row .value {
+            color: #ddd;
+            font-weight: 600;
+            text-align: right;
+        }
+
+        .metascore-bar {
+            height: 12px;
+            border-radius: 6px;
+            background: #2a2a2a;
+            overflow: hidden;
+            margin-top: 5px;
+        }
+
+        .metascore-bar .fill {
+            height: 100%;
+            border-radius: 6px;
+            transition: width 0.6s ease;
+        }
+
+        .metascore-bar .fill.verde {
+            background: #198754;
+        }
+
+        .metascore-bar .fill.amarillo {
+            background: #ffc107;
+        }
+
+        .metascore-bar .fill.rojo {
+            background: #dc3545;
+        }
+
+        .interests-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+
+        .interests-container .badge-interes {
+            background: #2a2a2a;
+            color: #aaa;
+            padding: 4px 12px;
+            border-radius: 30px;
+            font-size: 0.75rem;
+            border: 1px solid #3a3a3a;
+        }
+
+        .enlaces-container a {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            color: #5a9eff;
+            text-decoration: none;
+            font-size: 0.85rem;
+            padding: 4px 12px;
+            border: 1px solid #2a2a2a;
+            border-radius: 30px;
+            transition: all 0.3s;
+            margin: 2px;
+        }
+
+        .enlaces-container a:hover {
+            border-color: #5a9eff;
+            background: rgba(90, 158, 255, 0.1);
+        }
+
+        .detail-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .btn-primary-custom {
+            background: var(--primary);
+            border: none;
+            color: #fff;
+            border-radius: 30px;
+            padding: 10px 28px;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .btn-primary-custom:hover {
+            background: var(--primary-dark);
+            color: #fff;
+            transform: translateY(-2px);
+        }
+
+        .btn-outline-custom {
+            background: transparent;
+            border: 1px solid #444;
+            color: #ccc;
+            border-radius: 30px;
+            padding: 10px 28px;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .btn-outline-custom:hover {
+            border-color: #fff;
+            color: #fff;
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .btn-favorito-detalle {
+            background: transparent;
+            border: 2px solid #444;
+            color: #ccc;
+            border-radius: 30px;
+            padding: 10px 28px;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .btn-favorito-detalle:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        .btn-favorito-detalle.favorito {
+            background: var(--primary);
+            border-color: var(--primary);
+            color: #fff;
+        }
+
+        .btn-favorito-detalle.favorito:hover {
+            background: var(--primary-dark);
+            border-color: var(--primary-dark);
+            color: #fff;
+        }
+
+        .spinner-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 60vh;
+        }
+
+        .spinner-container .spinner {
+            width: 60px;
+            height: 60px;
+            border: 4px solid #333;
+            border-top-color: var(--primary);
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .spinner-container p {
+            color: #777;
+            margin-top: 15px;
+            font-weight: 500;
+        }
+
+        .error-container {
+            text-align: center;
+            padding: 80px 0;
+        }
+
+        .error-container i {
+            font-size: 4rem;
+            color: #e50914;
+            margin-bottom: 20px;
+        }
+
+        .error-container h4 {
+            color: #fff;
+            margin-bottom: 10px;
+        }
+
+        .error-container p {
+            color: #777;
+            margin-bottom: 20px;
+        }
+
+        .img-placeholder {
+            background: #2a2a2a;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #555;
+            font-size: 3rem;
+            border-radius: 12px;
+            min-height: 400px;
+        }
+
+        @media (max-width: 768px) {
+            .detail-title {
+                font-size: 1.8rem;
+            }
+
+            .detail-rating .rating-value {
+                font-size: 1.4rem;
+            }
+
+            .detail-actions .btn {
+                padding: 8px 18px;
+                font-size: 0.85rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-movie fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <i class="bi bi-film"></i>MovieReviews
+            </a>
+            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon" style="filter: invert(1);"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0 align-items-lg-center">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Inicio</a>
+                    </li>
+                    <li class="nav-item">
+                        <button class="btn btn-favoritos" id="btnAbrirFavoritos">
+                            <i class="bi bi-heart"></i> Favoritos
+                            <span class="badge-contador d-none" id="favoritosContadorNav">0</span>
+                        </button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <main class="container detail-container">
+        <div id="spinnerCarga" class="spinner-container">
+            <div class="spinner"></div>
+            <p>Cargando información de la película...</p>
+        </div>
+
+        <div id="errorContainer" class="error-container" style="display: none;">
+            <i class="bi bi-exclamation-triangle-fill"></i>
+            <h4>Película no encontrada</h4>
+            <p>No pudimos encontrar la información de esta película.</p>
+            <a href="index.html" class="btn btn-primary-custom">
+                <i class="bi bi-arrow-left me-2"></i>Volver al inicio
+            </a>
+        </div>
+
+        <div id="detallePelicula" style="display: none;">
+        </div>
+    </main>
+    <div class="modal fade" id="favoritosModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content modal-content-dark" style="background: #1a1a1a; color: #e5e5e5;">
+                <div class="modal-header" style="border-bottom: 1px solid #333;">
+                    <h5 class="modal-title"><i class="bi bi-heart-fill text-danger me-2"></i>Mis Favoritos</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" style="filter: brightness(0) invert(1);"></button>
+                </div>
+                <div class="modal-body" id="favoritosModalBody">
+                </div>
+                <div class="modal-footer" style="border-top: 1px solid #333;">
+                    <button type="button" class="btn btn-danger" id="btnEliminarTodosFav">
+                        <i class="bi bi-trash3 me-2"></i>Eliminar todos
+                    </button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+    <script>
+        $(function() {
+
+            console.log('🎬 MovieReviews · Detalle cargada');
+            let todasLasPeliculas = [];
+            let favoritos = JSON.parse(localStorage.getItem('movieReviewsFavoritos')) || [];
+            let peliculaActual = null;
+            const favoritosModal = new bootstrap.Modal(document.getElementById('favoritosModal'));
+
+            function guardarFavoritos() {
+                localStorage.setItem('movieReviewsFavoritos', JSON.stringify(favoritos));
+                actualizarContadorFavoritos();
+            }
+
+            function actualizarContadorFavoritos() {
+                const $contador = $('#favoritosContadorNav');
+                const total = favoritos.length;
+
+                if (total > 0) {
+                    $contador.text(total).removeClass('d-none');
+                } else {
+                    $contador.addClass('d-none');
+                }
+
+                if (peliculaActual) {
+                    const $btn = $('#btnFavoritoDetalle');
+                    if (esFavorita(peliculaActual.id)) {
+                        $btn.html('<i class="bi bi-heart-fill"></i> Favorito').addClass('favorito');
+                    } else {
+                        $btn.html('<i class="bi bi-heart"></i> Favorito').removeClass('favorito');
+                    }
+                }
+            }
+
+            function toggleFavorito(movieId) {
+                const index = favoritos.indexOf(movieId);
+                if (index === -1) {
+                    favoritos.push(movieId);
+                } else {
+                    favoritos.splice(index, 1);
+                }
+                guardarFavoritos();
+                return favoritos.includes(movieId);
+            }
+
+            function esFavorita(movieId) {
+                return favoritos.includes(movieId);
+            }
+
+            function generarEstrellas(rating) {
+                const total = 5;
+                const llenas = Math.round((rating || 0) / 2);
+                let stars = '';
+                for (let i = 0; i < total; i++) {
+                    stars += i < llenas ? '★' : '☆';
+                }
+                return stars;
+            }
+
+            function formatearDinero(cantidad) {
+                if (cantidad === null || cantidad === undefined) return 'No disponible';
+                return '$' + cantidad.toLocaleString('en-US');
+            }
+
+            function formatearNumero(num) {
+                if (num === null || num === undefined) return 'No disponible';
+                return num.toLocaleString('en-US');
+            }
+
+            const idiomasMap = {
+                'en': 'Inglés',
+                'es': 'Español',
+                'fr': 'Francés',
+                'de': 'Alemán',
+                'it': 'Italiano',
+                'ja': 'Japonés',
+                'ko': 'Coreano',
+                'zh': 'Chino',
+                'pt': 'Portugués',
+                'ru': 'Ruso',
+                'ar': 'Árabe',
+                'hi': 'Hindi',
+                'la': 'Latín',
+                'he': 'Hebreo',
+                'yi': 'Yidis',
+                'pl': 'Polaco',
+                'cs': 'Checo',
+                'hu': 'Húngaro',
+                'nl': 'Holandés',
+                'sv': 'Sueco',
+                'da': 'Danés',
+                'no': 'Noruego',
+                'fi': 'Finlandés',
+                'tr': 'Turco',
+                'fa': 'Persa',
+                'ta': 'Tamil',
+                'te': 'Telugu',
+                'ml': 'Malayalam',
+                'bn': 'Bengalí',
+                'vi': 'Vietnamita',
+                'th': 'Tailandés',
+                'id': 'Indonesio',
+                'ms': 'Malayo',
+                'tl': 'Tagalo',
+                'sw': 'Swahili',
+                'xh': 'Xhosa',
+                'zu': 'Zulú',
+                'be': 'Bielorruso',
+                'uk': 'Ucraniano',
+                'ro': 'Rumano',
+                'el': 'Griego',
+                'bg': 'Búlgaro',
+                'sr': 'Serbio',
+                'hr': 'Croata',
+                'sk': 'Eslovaco',
+                'sl': 'Esloveno',
+                'lt': 'Lituano',
+                'lv': 'Letón',
+                'et': 'Estonio',
+                'ka': 'Georgiano',
+                'hy': 'Armenio',
+                'az': 'Azerbaiyano',
+                'kk': 'Kazajo',
+                'uz': 'Uzbeko',
+                'ne': 'Nepalí',
+                'si': 'Cingalés',
+                'my': 'Birmano',
+                'km': 'Jemer',
+                'lo': 'Lao',
+                'mn': 'Mongol',
+                'bo': 'Tibetano',
+                'eo': 'Esperanto',
+                'gd': 'Gaélico escocés',
+                'ga': 'Irlandés',
+                'cy': 'Galés',
+                'br': 'Bretón',
+                'eu': 'Vasco',
+                'ca': 'Catalán',
+                'gl': 'Gallego',
+                'qu': 'Quechua',
+                'ay': 'Aimara',
+                'gn': 'Guaraní',
+                'nah': 'Náhuatl',
+                'yua': 'Maya yucateco',
+                'ht': 'Criollo haitiano',
+                'pap': 'Papiamento',
+                'srn': 'Sranan tongo',
+                'jv': 'Javanés',
+                'su': 'Sundanés',
+                'ceb': 'Cebuano',
+                'ilo': 'Ilocano',
+                'war': 'Waray',
+                'hil': 'Hiligaynon',
+                'bcl': 'Bicolano',
+                'pam': 'Pampango',
+                'pag': 'Pangasinense',
+                'kr': 'Kanuri',
+                'ha': 'Hausa',
+                'yo': 'Yoruba',
+                'ig': 'Igbo',
+                'am': 'Amárico',
+                'ti': 'Tigriña',
+                'so': 'Somalí',
+                'om': 'Oromo',
+                'rw': 'Kinyarwanda',
+                'rn': 'Kirundi',
+                'lg': 'Luganda',
+                'ak': 'Akan',
+                'ee': 'Ewe',
+                'tw': 'Twi',
+                'wo': 'Wólof',
+                'ff': 'Fula',
+                'bm': 'Bambara',
+                'dyu': 'Diula',
+                'mnk': 'Mandinka',
+                'sg': 'Sango',
+                'ln': 'Lingala',
+                'kg': 'Kikongo',
+                'lu': 'Luba-katanga',
+                'lua': 'Luba-lulua',
+                'swc': 'Suajili del Congo',
+                'ny': 'Chichewa',
+                'sn': 'Shona',
+                'st': 'Sesoto',
+                'tn': 'Setsuana',
+                'ts': 'Tsonga',
+                've': 'Venda',
+                'xh': 'Xhosa',
+                'zu': 'Zulú',
+                'af': 'Afrikáans',
+                'nso': 'Sesotho sa Leboa',
+                'ss': 'Swati',
+                'nr': 'Ndebele del sur'
+            };
+
+            function nombreIdioma(codigo) {
+                return idiomasMap[codigo] || codigo.toUpperCase();
+            }
+
+            const paisesMap = {
+                'US': 'Estados Unidos',
+                'GB': 'Reino Unido',
+                'FR': 'Francia',
+                'DE': 'Alemania',
+                'IT': 'Italia',
+                'ES': 'España',
+                'JP': 'Japón',
+                'KR': 'Corea del Sur',
+                'CN': 'China',
+                'IN': 'India',
+                'BR': 'Brasil',
+                'MX': 'México',
+                'AR': 'Argentina',
+                'CA': 'Canadá',
+                'AU': 'Australia',
+                'NZ': 'Nueva Zelanda',
+                'RU': 'Rusia',
+                'SE': 'Suecia',
+                'NO': 'Noruega',
+                'DK': 'Dinamarca',
+                'FI': 'Finlandia',
+                'NL': 'Países Bajos',
+                'BE': 'Bélgica',
+                'CH': 'Suiza',
+                'AT': 'Austria',
+                'PL': 'Polonia',
+                'CZ': 'República Checa',
+                'HU': 'Hungría',
+                'RO': 'Rumanía',
+                'BG': 'Bulgaria',
+                'GR': 'Grecia',
+                'TR': 'Turquía',
+                'IR': 'Irán',
+                'IL': 'Israel',
+                'ZA': 'Sudáfrica',
+                'EG': 'Egipto',
+                'MA': 'Marruecos',
+                'NG': 'Nigeria',
+                'KE': 'Kenia',
+                'TH': 'Tailandia',
+                'VN': 'Vietnam',
+                'PH': 'Filipinas',
+                'ID': 'Indonesia',
+                'MY': 'Malasia',
+                'SG': 'Singapur',
+                'HK': 'Hong Kong',
+                'TW': 'Taiwán',
+                'IE': 'Irlanda',
+                'PT': 'Portugal',
+                'IS': 'Islandia',
+                'MT': 'Malta',
+                'CY': 'Chipre',
+                'LB': 'Líbano',
+                'JO': 'Jordania',
+                'AE': 'Emiratos Árabes Unidos',
+                'QA': 'Catar',
+                'SA': 'Arabia Saudita',
+                'PK': 'Pakistán',
+                'BD': 'Bangladés',
+                'LK': 'Sri Lanka',
+                'NP': 'Nepal',
+                'MM': 'Myanmar',
+                'KH': 'Camboya',
+                'LA': 'Laos',
+                'MN': 'Mongolia',
+                'KZ': 'Kazajistán',
+                'UZ': 'Uzbekistán',
+                'AZ': 'Azerbaiyán',
+                'GE': 'Georgia',
+                'AM': 'Armenia',
+                'UA': 'Ucrania',
+                'BY': 'Bielorrusia',
+                'LT': 'Lituania',
+                'LV': 'Letonia',
+                'EE': 'Estonia',
+                'HR': 'Croacia',
+                'RS': 'Serbia',
+                'SI': 'Eslovenia',
+                'SK': 'Eslovaquia',
+                'BA': 'Bosnia y Herzegovina',
+                'MK': 'Macedonia del Norte',
+                'AL': 'Albania',
+                'XWG': 'Alemania del Este',
+                'SUHH': 'Unión Soviética',
+                'CSHH': 'Checoslovaquia',
+                'YUHH': 'Yugoslavia'
+            };
+
+            function nombrePais(codigo) {
+                return paisesMap[codigo] || codigo;
+            }
+
+            function renderizarDetalle(peli) {
+                const $detalle = $('#detallePelicula');
+                const esFav = esFavorita(peli.id);
+
+                let metaClass = 'rojo';
+                let metaWidth = '0%';
+                if (peli.metascore !== null && peli.metascore !== undefined) {
+                    if (peli.metascore >= 70) metaClass = 'verde';
+                    else if (peli.metascore >= 50) metaClass = 'amarillo';
+                    metaWidth = peli.metascore + '%';
+                }
+
+                let generosHtml = '';
+                if (peli.genres && peli.genres.length > 0) {
+                    peli.genres.forEach(function(g) {
+                        generosHtml += '<span class="badge-genero">' + g + '</span>';
+                    });
+                } else {
+                    generosHtml = '<span class="badge-genero">Sin género</span>';
+                }
+
+                let interesesHtml = '';
+                if (peli.interests && peli.interests.length > 0) {
+                    peli.interests.forEach(function(i) {
+                        interesesHtml += '<span class="badge-interes">' + i + '</span>';
+                    });
+                } else {
+                    interesesHtml = '<span class="text-muted small">No especificados</span>';
+                }
+
+                let idiomasHtml = '';
+                if (peli.spokenLanguages && peli.spokenLanguages.length > 0) {
+                    peli.spokenLanguages.forEach(function(l) {
+                        idiomasHtml += '<span class="badge-genero me-1 mb-1">' + nombreIdioma(l) + '</span>';
+                    });
+                } else {
+                    idiomasHtml = '<span class="text-muted small">No especificados</span>';
+                }
+
+                let paisesHtml = '';
+                if (peli.countriesOfOrigin && peli.countriesOfOrigin.length > 0) {
+                    peli.countriesOfOrigin.forEach(function(c) {
+                        paisesHtml += '<span class="badge-genero me-1 mb-1">' + nombrePais(c) + '</span>';
+                    });
+                } else {
+                    paisesHtml = '<span class="text-muted small">No especificados</span>';
+                }
+
+                let productorasHtml = '';
+                if (peli.productionCompanies && peli.productionCompanies.length > 0) {
+                    peli.productionCompanies.forEach(function(pc) {
+                        productorasHtml += '<span class="badge-genero me-1 mb-1">' + pc.name + '</span>';
+                    });
+                } else {
+                    productorasHtml = '<span class="text-muted small">No especificadas</span>';
+                }
+
+                let enlacesHtml = '';
+                if (peli.externalLinks && peli.externalLinks.length > 0) {
+                    peli.externalLinks.forEach(function(link, index) {
+                        let icon = 'bi-box-arrow-up-right';
+                        if (link.includes('facebook')) icon = 'bi-facebook';
+                        else if (link.includes('instagram')) icon = 'bi-instagram';
+                        else if (link.includes('twitter')) icon = 'bi-twitter';
+                        else if (link.includes('youtube')) icon = 'bi-youtube';
+                        enlacesHtml += '<a href="' + link + '" target="_blank"><i class="bi ' + icon + '"></i> Enlace ' + (index + 1) + '</a>';
+                    });
+                } else {
+                    enlacesHtml = '<span class="text-muted small">No disponibles</span>';
+                }
+
+                let trailerHtml = '';
+                if (peli.trailer) {
+                    trailerHtml = '<a href="' + peli.trailer + '" target="_blank" class="btn-primary-custom"><i class="bi bi-play-fill me-2"></i>Ver Tráiler</a>';
+                }
+
+                const budget = formatearDinero(peli.budget);
+                const gross = formatearDinero(peli.grossWorldwide);
+
+                const runtime = peli.runtimeMinutes ? peli.runtimeMinutes + ' min' : 'No disponible';
+
+                const imgSrc = peli.primaryImage || 'https://via.placeholder.com/400x600/333/666?text=Sin+Imagen';
+
+                let html = `
+                    <div class="row g-4">
+                        <!-- Poster -->
+                        <div class="col-lg-4">
+                            <img src="${imgSrc}" alt="${peli.primaryTitle}" class="detail-poster"
+                                 onerror="this.src='https://via.placeholder.com/400x600/333/666?text=Sin+Imagen'">
+                        </div>
+
+                        <!-- Info principal -->
+                        <div class="col-lg-8">
+                            <h1 class="detail-title">${peli.primaryTitle}</h1>
+                            <div class="detail-meta">
+                                <span>${peli.startYear || 'N/A'}</span>
+                                <span class="separator">•</span>
+                                <span>${runtime}</span>
+                                <span class="separator">•</span>
+                                <span>${peli.contentRating || 'Sin clasificar'}</span>
+                            </div>
+
+                            <div class="detail-rating">
+                                <span class="stars">${generarEstrellas(peli.averageRating)}</span>
+                                <span class="rating-value">${(peli.averageRating || 0).toFixed(1)}</span>
+                                <span class="votes">(${formatearNumero(peli.numVotes)} votos)</span>
+                            </div>
+
+                            <div class="detail-genres">
+                                ${generosHtml}
+                            </div>
+
+                            <p class="detail-description">${peli.description || 'Sin sinopsis disponible.'}</p>
+
+                            <div class="detail-actions">
+                                ${trailerHtml}
+                                <button class="btn-favorito-detalle ${esFav ? 'favorito' : ''}" id="btnFavoritoDetalle" data-id="${peli.id}">
+                                    <i class="bi bi-heart${esFav ? '-fill' : ''}"></i> ${esFav ? 'Favorito' : 'Favorito'}
+                                </button>
+                                <a href="${peli.url}" target="_blank" class="btn-outline-custom">
+                                    <i class="bi bi-box-arrow-up-right me-2"></i>IMDb
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Información detallada -->
+                    <div class="row g-4 mt-4">
+                        <!-- Columna izquierda -->
+                        <div class="col-lg-6">
+                            <!-- Metascore -->
+                            ${peli.metascore !== null && peli.metascore !== undefined ? `
+                            <div class="detail-section">
+                                <h5><i class="bi bi-bar-chart-fill"></i>Metascore</h5>
+                                <div class="d-flex justify-content-between mb-1">
+                                    <span class="label">Puntuación</span>
+                                    <span class="fw-bold">${peli.metascore}/100</span>
+                                </div>
+                                <div class="metascore-bar">
+                                    <div class="fill ${metaClass}" style="width: ${metaWidth};"></div>
+                                </div>
+                            </div>
+                            ` : ''}
+
+                            <!-- Presupuesto y Recaudación -->
+                            <div class="detail-section">
+                                <h5><i class="bi bi-currency-dollar"></i>Finanzas</h5>
+                                <div class="info-row">
+                                    <span class="label">Presupuesto</span>
+                                    <span class="value">${budget}</span>
+                                </div>
+                                <div class="info-row">
+                                    <span class="label">Recaudación mundial</span>
+                                    <span class="value">${gross}</span>
+                                </div>
+                            </div>
+
+                            <!-- Idiomas -->
+                            <div class="detail-section">
+                                <h5><i class="bi bi-translate"></i>Idiomas</h5>
+                                <div>${idiomasHtml}</div>
+                            </div>
+
+                            <!-- Países -->
+                            <div class="detail-section">
+                                <h5><i class="bi bi-globe-americas"></i>Países de origen</h5>
+                                <div>${paisesHtml}</div>
+                            </div>
+                        </div>
+
+                        <!-- Columna derecha -->
+                        <div class="col-lg-6">
+                            <!-- Intereses -->
+                            <div class="detail-section">
+                                <h5><i class="bi bi-tags-fill"></i>Intereses</h5>
+                                <div class="interests-container">${interesesHtml}</div>
+                            </div>
+
+                            <!-- Productoras -->
+                            <div class="detail-section">
+                                <h5><i class="bi bi-building"></i>Productoras</h5>
+                                <div>${productorasHtml}</div>
+                            </div>
+
+                            <!-- Enlaces externos -->
+                            <div class="detail-section">
+                                <h5><i class="bi bi-link-45deg"></i>Enlaces externos</h5>
+                                <div class="enlaces-container">${enlacesHtml}</div>
+                            </div>
+
+                            <!-- Información adicional -->
+                            <div class="detail-section">
+                                <h5><i class="bi bi-info-circle-fill"></i>Información adicional</h5>
+                                <div class="info-row">
+                                    <span class="label">Tipo</span>
+                                    <span class="value">${peli.type || 'Película'}</span>
+                                </div>
+                                <div class="info-row">
+                                    <span class="label">Fecha de estreno</span>
+                                    <span class="value">${peli.releaseDate || 'No disponible'}</span>
+                                </div>
+                                <div class="info-row">
+                                    <span class="label">Título original</span>
+                                    <span class="value">${peli.originalTitle || peli.primaryTitle}</span>
+                                </div>
+                                ${peli.filmingLocations && peli.filmingLocations.length > 0 ? `
+                                <div class="info-row">
+                                    <span class="label">Locaciones</span>
+                                    <span class="value">${peli.filmingLocations[0]}</span>
+                                </div>
+                                ` : ''}
+                            </div>
+                        </div>
+                    </div>
+                `;
+
+                $detalle.html(html);
+                $detalle.fadeIn(500);
+                $('#spinnerCarga').hide();
+
+                actualizarContadorFavoritos();
+            }
+
+
+            function renderizarModalFavoritos() {
+                const $body = $('#favoritosModalBody');
+                const $eliminarTodos = $('#btnEliminarTodosFav');
+
+                if (favoritos.length === 0) {
+                    $body.html(`
+                        <div class="favoritos-vacios">
+                            <i class="bi bi-heart"></i>
+                            <p>Todavía no tienes películas favoritas.</p>
+                            <p class="small text-muted">Explora el catálogo y marca tus favoritas ❤️</p>
+                        </div>
+                    `);
+                    $eliminarTodos.hide();
+                    return;
+                }
+
+                $eliminarTodos.show();
+
+                const pelisFav = todasLasPeliculas.filter(function(p) {
+                    return favoritos.includes(p.id);
+                });
+
+                if (pelisFav.length === 0) {
+                    $body.html(`
+                        <div class="favoritos-vacios">
+                            <i class="bi bi-heart"></i>
+                            <p>No se encontraron datos de tus películas favoritas.</p>
+                        </div>
+                    `);
+                    $eliminarTodos.hide();
+                    return;
+                }
+
+                let html = '<div class="row g-3">';
+                pelisFav.forEach(function(peli) {
+                    const stars = generarEstrellas(peli.averageRating || 0);
+                    html += `
+                        <div class="col-6 col-md-4 col-lg-3">
+                            <div class="favorito-item">
+                                <img src="${peli.primaryImage || 'https://via.placeholder.com/300x200/333/666?text=Sin+Imagen'}" 
+                                     alt="${peli.primaryTitle}"
+                                     onerror="this.src='https://via.placeholder.com/300x200/333/666?text=Sin+Imagen'">
+                                <div class="favorito-info">
+                                    <div class="nombre" title="${peli.primaryTitle}">${peli.primaryTitle}</div>
+                                    <div class="anio">${peli.startYear || 'N/A'}</div>
+                                    <div class="rating">${stars} ${(peli.averageRating || 0).toFixed(1)}</div>
+                                </div>
+                                <div class="btn-acciones">
+                                    <a href="reseña.html?id=${peli.id}" class="btn btn-ver-fav btn-sm">Ver</a>
+                                    <button class="btn btn-eliminar-fav btn-sm btn-eliminar-fav-modal" data-id="${peli.id}">
+                                        <i class="bi bi-x-lg"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                });
+                html += '</div>';
+
+                $body.html(html);
+            }
+
+            function cargarPelicula() {
+                const urlParams = new URLSearchParams(window.location.search);
+                const movieId = urlParams.get('id');
+
+                if (!movieId) {
+                    mostrarError('No se especificó ninguna película.');
+                    return;
+                }
+
+                console.log('Buscando película con ID:', movieId);
+
+                $.ajax({
+                    url: 'peliculas.json',
+                    method: 'GET',
+                    dataType: 'json',
+                    success: function(data) {
+                        todasLasPeliculas = data;
+                        const peli = data.find(function(p) {
+                            return p.id === movieId;
+                        });
+
+                        if (peli) {
+                            peliculaActual = peli;
+                            renderizarDetalle(peli);
+                            console.log('Película encontrada:', peli.primaryTitle);
+                        } else {
+                            mostrarError('No se encontró la película con ID: ' + movieId);
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        console.error('Error al cargar JSON:', error);
+                        mostrarError('No se pudo cargar la información de la película.');
+                    }
+                });
+            }
+
+            function mostrarError(mensaje) {
+                $('#spinnerCarga').hide();
+                $('#detallePelicula').hide();
+                $('#errorContainer').show();
+                $('#errorContainer p').text(mensaje || 'No pudimos encontrar la información de esta película.');
+            }
+
+            $(document).on('click', '#btnFavoritoDetalle', function() {
+                if (!peliculaActual) return;
+                const esAhoraFav = toggleFavorito(peliculaActual.id);
+                const $btn = $(this);
+
+                if (esAhoraFav) {
+                    $btn.addClass('favorito').html('<i class="bi bi-heart-fill"></i> Favorito');
+                } else {
+                    $btn.removeClass('favorito').html('<i class="bi bi-heart"></i> Favorito');
+                }
+
+                actualizarContadorFavoritos();
+            });
+
+            $('#btnAbrirFavoritos').on('click', function() {
+                renderizarModalFavoritos();
+                favoritosModal.show();
+            });
+
+            $('#btnEliminarTodosFav').on('click', function() {
+                if (favoritos.length === 0) return;
+                if (confirm('¿Seguro que quieres eliminar TODOS tus favoritos?')) {
+                    favoritos = [];
+                    guardarFavoritos();
+                    renderizarModalFavoritos();
+                    actualizarContadorFavoritos();
+                }
+            });
+
+            $(document).on('click', '.btn-eliminar-fav-modal', function() {
+                const id = $(this).data('id');
+                const index = favoritos.indexOf(id);
+                if (index !== -1) {
+                    favoritos.splice(index, 1);
+                    guardarFavoritos();
+                    renderizarModalFavoritos();
+                    actualizarContadorFavoritos();
+                }
+            });
+
+            cargarPelicula();
+
+            actualizarContadorFavoritos();
+
+            console.log('MovieReviews · Detalle lista');
+            console.log('Favoritos:', favoritos);
+
+        });
+    </script>
+
+</body>
+</html>

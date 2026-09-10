@@ -1,0 +1,898 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MovieReviews · Inicio</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+    <style>
+        :root {
+            --primary: #e50914;
+            --primary-dark: #b20710;
+            --dark: #141414;
+            --dark-card: #1a1a1a;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #0f0f0f;
+            color: #e5e5e5;
+            padding-top: 70px;
+        }
+
+        .navbar-movie {
+            background: var(--dark);
+            border-bottom: 2px solid var(--primary);
+            padding: 12px 0;
+        }
+
+        .navbar-movie .navbar-brand {
+            color: #fff;
+            font-weight: 800;
+            font-size: 1.5rem;
+        }
+
+        .navbar-movie .navbar-brand i {
+            color: var(--primary);
+            margin-right: 10px;
+        }
+
+        .navbar-movie .nav-link {
+            color: #b3b3b3 !important;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .navbar-movie .nav-link:hover,
+        .navbar-movie .nav-link.active {
+            color: #fff !important;
+        }
+
+        .navbar-movie .btn-favoritos {
+            background: transparent;
+            border: 1px solid #333;
+            color: #b3b3b3;
+            border-radius: 30px;
+            padding: 6px 18px;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .navbar-movie .btn-favoritos:hover {
+            border-color: var(--primary);
+            color: #fff;
+        }
+
+        .navbar-movie .btn-favoritos .badge-contador {
+            position: absolute;
+            top: -6px;
+            right: -6px;
+            background: var(--primary);
+            color: #fff;
+            font-size: 0.6rem;
+            padding: 2px 6px;
+            border-radius: 50%;
+        }
+
+        .navbar-movie .btn-favoritos .badge-contador.d-none {
+            display: none !important;
+        }
+
+        /* Barra de búsqueda */
+        .search-wrapper {
+            position: relative;
+            width: 100%;
+            max-width: 300px;
+        }
+
+        .search-wrapper .form-control {
+            background: #2a2a2a;
+            border: 1px solid #333;
+            color: #fff;
+            border-radius: 30px;
+            padding: 8px 20px 8px 40px;
+        }
+
+        .search-wrapper .form-control::placeholder {
+            color: #777;
+        }
+
+        .search-wrapper .form-control:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(229, 9, 20, 0.25);
+            background: #333;
+            color: #fff;
+        }
+
+        .search-wrapper .search-icon {
+            position: absolute;
+            left: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #777;
+        }
+
+        .section-title {
+            font-weight: 800;
+            font-size: 2.2rem;
+            color: #fff;
+            margin-bottom: 25px;
+        }
+
+        .section-title span {
+            color: var(--primary);
+        }
+
+        .filtros-wrapper {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 30px;
+        }
+
+        .btn-filtro {
+            background: #2a2a2a;
+            border: 1px solid #333;
+            color: #b3b3b3;
+            border-radius: 30px;
+            padding: 6px 18px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+
+        .btn-filtro:hover {
+            background: #3a3a3a;
+            color: #fff;
+        }
+
+        .btn-filtro.active {
+            background: var(--primary);
+            border-color: var(--primary);
+            color: #fff;
+        }
+
+        .btn-filtro.active:hover {
+            background: var(--primary-dark);
+            border-color: var(--primary-dark);
+        }
+
+        .movie-card {
+            background: var(--dark-card);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            height: 100%;
+            position: relative;
+            cursor: default;
+        }
+
+        .movie-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.6);
+        }
+
+        .movie-card .card-img-top {
+            width: 100%;
+            height: 280px;
+            object-fit: cover;
+        }
+
+        .movie-card .card-body {
+            padding: 16px;
+        }
+
+        .movie-card .card-title {
+            font-weight: 700;
+            font-size: 1rem;
+            color: #fff;
+            margin-bottom: 4px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .movie-card .card-year {
+            color: #777;
+            font-size: 0.85rem;
+        }
+
+        .movie-card .card-rating {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            margin: 8px 0;
+        }
+
+        .movie-card .card-rating .stars {
+            color: #f5c518;
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+        }
+
+        .movie-card .card-rating .rating-value {
+            color: #ddd;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .movie-card .btn-ver {
+            background: var(--primary);
+            border: none;
+            color: #fff;
+            border-radius: 30px;
+            padding: 6px 20px;
+            font-weight: 500;
+            font-size: 0.85rem;
+            transition: background 0.3s;
+        }
+
+        .movie-card .btn-ver:hover {
+            background: var(--primary-dark);
+            color: #fff;
+        }
+
+        .movie-card .btn-favorito-card {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            background: rgba(0, 0, 0, 0.7);
+            border: none;
+            border-radius: 50%;
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #666;
+            font-size: 1.2rem;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .movie-card .btn-favorito-card:hover {
+            transform: scale(1.1);
+        }
+
+        .movie-card .btn-favorito-card.favorito {
+            color: var(--primary);
+        }
+
+        .movie-card .btn-favorito-card.favorito i {
+            font-weight: 900;
+        }
+
+        .spinner-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 60px 0;
+        }
+
+        .spinner-container .spinner {
+            width: 60px;
+            height: 60px;
+            border: 4px solid #333;
+            border-top-color: var(--primary);
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .spinner-container p {
+            color: #777;
+            margin-top: 15px;
+            font-weight: 500;
+        }
+
+        .error-container {
+            text-align: center;
+            padding: 60px 0;
+        }
+
+        .error-container i {
+            font-size: 4rem;
+            color: #e50914;
+            margin-bottom: 20px;
+        }
+
+        .error-container h4 {
+            color: #fff;
+            margin-bottom: 10px;
+        }
+
+        .error-container p {
+            color: #777;
+            margin-bottom: 20px;
+        }
+
+        .error-container .btn-reintentar {
+            background: var(--primary);
+            border: none;
+            color: #fff;
+            border-radius: 30px;
+            padding: 10px 30px;
+            font-weight: 600;
+        }
+
+        .error-container .btn-reintentar:hover {
+            background: var(--primary-dark);
+            color: #fff;
+        }
+
+        .sin-resultados {
+            text-align: center;
+            padding: 60px 0;
+            display: none;
+        }
+
+        .sin-resultados i {
+            font-size: 3.5rem;
+            color: #555;
+            margin-bottom: 15px;
+        }
+
+        .sin-resultados h5 {
+            color: #bbb;
+        }
+
+        .sin-resultados p {
+            color: #666;
+        }
+
+        .modal-content-dark {
+            background: #1a1a1a;
+            color: #e5e5e5;
+        }
+
+        .modal-content-dark .modal-header {
+            border-bottom: 1px solid #333;
+        }
+
+        .modal-content-dark .modal-header .btn-close {
+            filter: brightness(0) invert(1);
+        }
+
+        .modal-content-dark .modal-footer {
+            border-top: 1px solid #333;
+        }
+
+        .favorito-item {
+            background: #2a2a2a;
+            border-radius: 8px;
+            overflow: hidden;
+            transition: transform 0.2s;
+        }
+
+        .favorito-item:hover {
+            transform: scale(1.02);
+        }
+
+        .favorito-item img {
+            width: 100%;
+            height: 120px;
+            object-fit: cover;
+        }
+
+        .favorito-item .favorito-info {
+            padding: 10px;
+        }
+
+        .favorito-item .favorito-info .nombre {
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: #fff;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .favorito-item .favorito-info .anio {
+            color: #777;
+            font-size: 0.8rem;
+        }
+
+        .favorito-item .favorito-info .rating {
+            color: #f5c518;
+            font-size: 0.7rem;
+        }
+
+        .favorito-item .btn-acciones {
+            display: flex;
+            gap: 4px;
+            padding: 8px 10px;
+            border-top: 1px solid #333;
+        }
+
+        .favorito-item .btn-acciones .btn {
+            padding: 4px 10px;
+            font-size: 0.7rem;
+            border-radius: 4px;
+        }
+
+        .favorito-item .btn-acciones .btn-ver-fav {
+            background: var(--primary);
+            border: none;
+            color: #fff;
+        }
+
+        .favorito-item .btn-acciones .btn-ver-fav:hover {
+            background: var(--primary-dark);
+        }
+
+        .favorito-item .btn-acciones .btn-eliminar-fav {
+            background: transparent;
+            border: 1px solid #555;
+            color: #999;
+        }
+
+        .favorito-item .btn-acciones .btn-eliminar-fav:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        .favoritos-vacios {
+            padding: 40px 0;
+            text-align: center;
+        }
+
+        .favoritos-vacios i {
+            font-size: 3rem;
+            color: #555;
+            margin-bottom: 15px;
+        }
+
+        .favoritos-vacios p {
+            color: #777;
+        }
+
+        @media (max-width: 768px) {
+            .search-wrapper {
+                max-width: 100%;
+                margin-top: 10px;
+            }
+
+            .section-title {
+                font-size: 1.6rem;
+            }
+
+            .movie-card .card-img-top {
+                height: 200px;
+            }
+
+            .filtros-wrapper {
+                gap: 5px;
+            }
+
+            .btn-filtro {
+                font-size: 0.75rem;
+                padding: 4px 12px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .movie-card .card-img-top {
+                height: 160px;
+            }
+
+            .movie-card .card-title {
+                font-size: 0.85rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-movie fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <i class="bi bi-film"></i>MovieReviews
+            </a>
+            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon" style="filter: invert(1);"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0 align-items-lg-center">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="index.html">Inicio</a>
+                    </li>
+                    <li class="nav-item">
+                        <button class="btn btn-favoritos" id="btnAbrirFavoritos">
+                            <i class="bi bi-heart"></i> Favoritos
+                            <span class="badge-contador d-none" id="favoritosContadorNav">0</span>
+                        </button>
+                    </li>
+                    <li class="nav-item ms-lg-3 w-100 w-lg-auto">
+                        <div class="search-wrapper">
+                            <span class="search-icon"><i class="bi bi-search"></i></span>
+                            <input type="text" class="form-control" id="buscadorPeliculas" placeholder="Buscar películas...">
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <main class="container py-4">
+        <div class="d-flex flex-wrap justify-content-between align-items-center mb-3">
+            <h1 class="section-title">Películas <span>Destacadas</span></h1>
+            <span class="text-muted" id="contadorPeliculas">Cargando...</span>
+        </div>
+
+        <div class="filtros-wrapper" id="filtrosContainer">
+            <button class="btn-filtro active" data-decada="todos">Todos</button>
+            <button class="btn-filtro" data-decada="1990-1999">1990-1999</button>
+            <button class="btn-filtro" data-decada="2000-2009">2000-2009</button>
+            <button class="btn-filtro" data-decada="2010-2019">2010-2019</button>
+            <button class="btn-filtro" data-decada="2020-2026">2020-2026</button>
+        </div>
+
+        <div id="spinnerCarga" class="spinner-container">
+            <div class="spinner"></div>
+            <p>Cargando películas...</p>
+        </div>
+
+        <div id="errorContainer" class="error-container" style="display: none;">
+            <i class="bi bi-exclamation-triangle-fill"></i>
+            <h4>¡Ups! Algo salió mal</h4>
+            <p>No pudimos cargar las películas. Por favor, intenta de nuevo.</p>
+            <button class="btn-reintentar" id="btnReintentar"><i class="bi bi-arrow-repeat me-2"></i>Reintentar</button>
+        </div>
+
+        <div id="sinResultados" class="sin-resultados">
+            <i class="bi bi-search"></i>
+            <h5>No se encontraron películas</h5>
+            <p>Intenta con otro término de búsqueda o filtro.</p>
+        </div>
+
+        <div class="row g-4" id="gridPeliculas"></div>
+    </main>
+
+    <div class="modal fade" id="favoritosModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content modal-content-dark">
+                <div class="modal-header">
+                    <h5 class="modal-title"><i class="bi bi-heart-fill text-danger me-2"></i>Mis Favoritos</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body" id="favoritosModalBody">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" id="btnEliminarTodosFav">
+                        <i class="bi bi-trash3 me-2"></i>Eliminar todos
+                    </button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+    <script>
+        $(function() {
+
+            console.log('🎬 MovieReviews cargada');
+
+            let todasLasPeliculas = [];
+            let peliculasFiltradas = [];
+            let favoritos = JSON.parse(localStorage.getItem('movieReviewsFavoritos')) || [];
+            let decadaActual = 'todos';
+
+            const favoritosModal = new bootstrap.Modal(document.getElementById('favoritosModal'));
+
+            function guardarFavoritos() {
+                localStorage.setItem('movieReviewsFavoritos', JSON.stringify(favoritos));
+                actualizarContadorFavoritos();
+            }
+
+            function actualizarContadorFavoritos() {
+                const $contador = $('#favoritosContadorNav');
+                const total = favoritos.length;
+
+                if (total > 0) {
+                    $contador.text(total).removeClass('d-none');
+                } else {
+                    $contador.addClass('d-none');
+                }
+
+                const $detalleBtn = $('#btnFavoritoDetalle');
+                if ($detalleBtn.length) {
+                    const movieId = $detalleBtn.data('id');
+                    if (favoritos.includes(movieId)) {
+                        $detalleBtn.html('<i class="bi bi-heart-fill"></i> Favorito').addClass('favorito');
+                    } else {
+                        $detalleBtn.html('<i class="bi bi-heart"></i> Favorito').removeClass('favorito');
+                    }
+                }
+            }
+
+            function toggleFavorito(movieId) {
+                const index = favoritos.indexOf(movieId);
+                if (index === -1) {
+                    favoritos.push(movieId);
+                } else {
+                    favoritos.splice(index, 1);
+                }
+                guardarFavoritos();
+                renderizarPeliculas(peliculasFiltradas);
+                return favoritos.includes(movieId);
+            }
+
+            // Verificar si una película es favorita
+            function esFavorita(movieId) {
+                return favoritos.includes(movieId);
+            }
+
+            function generarEstrellas(rating) {
+                const total = 5;
+                const llenas = Math.round(rating / 2);
+                let stars = '';
+                for (let i = 0; i < total; i++) {
+                    stars += i < llenas ? '★' : '☆';
+                }
+                return stars;
+            }
+
+            function renderizarPeliculas(peliculas) {
+                const $grid = $('#gridPeliculas');
+                const $sinResultados = $('#sinResultados');
+                const $contador = $('#contadorPeliculas');
+
+                $grid.empty();
+
+                if (peliculas.length === 0) {
+                    $sinResultados.show();
+                    $contador.text('0 películas');
+                    return;
+                }
+
+                $sinResultados.hide();
+                $contador.text(peliculas.length + ' películas');
+
+                peliculas.forEach(function(peli) {
+                    const esFav = esFavorita(peli.id);
+                    const stars = generarEstrellas(peli.averageRating || 0);
+
+                    const card = `
+                        <div class="col-6 col-md-4 col-lg-3">
+                            <div class="movie-card" data-id="${peli.id}">
+                                <button class="btn-favorito-card ${esFav ? 'favorito' : ''}" data-id="${peli.id}">
+                                    <i class="bi bi-heart${esFav ? '-fill' : ''}"></i>
+                                </button>
+                                <img src="${peli.primaryImage || 'https://via.placeholder.com/300x450/333/666?text=Sin+Imagen'}" 
+                                     class="card-img-top" alt="${peli.primaryTitle}" 
+                                     onerror="this.src='https://via.placeholder.com/300x450/333/666?text=Sin+Imagen'">
+                                <div class="card-body">
+                                    <h5 class="card-title" title="${peli.primaryTitle}">${peli.primaryTitle}</h5>
+                                    <div class="card-year">${peli.startYear || 'N/A'}</div>
+                                    <div class="card-rating">
+                                        <span class="stars">${stars}</span>
+                                        <span class="rating-value">${(peli.averageRating || 0).toFixed(1)}</span>
+                                    </div>
+                                    <a href="reseña.html?id=${peli.id}" class="btn btn-ver btn-sm w-100">Ver reseña</a>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+
+                    $grid.append(card);
+                });
+            }
+
+            function filtrarPeliculas() {
+                const texto = $('#buscadorPeliculas').val().trim().toLowerCase();
+                const decada = decadaActual;
+
+                let resultado = todasLasPeliculas.filter(function(peli) {
+                    const coincideTexto = texto === '' || peli.primaryTitle.toLowerCase().indexOf(texto) !== -1;
+
+                    let coincideDecada = true;
+                    if (decada !== 'todos') {
+                        const partes = decada.split('-');
+                        const inicio = parseInt(partes[0]);
+                        const fin = parseInt(partes[1]);
+                        const anio = peli.startYear || 0;
+                        coincideDecada = anio >= inicio && anio <= fin;
+                    }
+
+                    return coincideTexto && coincideDecada;
+                });
+
+                resultado.sort(function(a, b) {
+                    return (b.averageRating || 0) - (a.averageRating || 0);
+                });
+
+                peliculasFiltradas = resultado;
+                renderizarPeliculas(resultado);
+            }
+
+            function cargarPeliculas() {
+                const $spinner = $('#spinnerCarga');
+                const $error = $('#errorContainer');
+                const $grid = $('#gridPeliculas');
+
+                $spinner.show();
+                $error.hide();
+                $grid.empty();
+
+                setTimeout(function() {
+                    $.ajax({
+                        url: 'peliculas.json',
+                        method: 'GET',
+                        dataType: 'json',
+                        success: function(data) {
+                            $spinner.hide();
+                            if (data && data.length > 0) {
+                                todasLasPeliculas = data;
+                                filtrarPeliculas();
+                                console.log('Películas cargadas desde JSON:', data.length);
+                            } else {
+                                mostrarError('No se encontraron películas en el archivo JSON.');
+                            }
+                        },
+                        error: function(xhr, status, error) {
+                            $spinner.hide();
+                            console.error('Error al cargar JSON:', error);
+                            mostrarError('No se pudo cargar el archivo de películas.');
+                        }
+                    });
+                }, 800);
+            }
+
+            function mostrarError(mensaje) {
+                $('#errorContainer').show();
+                $('#errorContainer p').text(mensaje || 'No pudimos cargar las películas. Por favor, intenta de nuevo.');
+            }
+
+            function renderizarModalFavoritos() {
+                const $body = $('#favoritosModalBody');
+                const $eliminarTodos = $('#btnEliminarTodosFav');
+
+                if (favoritos.length === 0) {
+                    $body.html(`
+                        <div class="favoritos-vacios">
+                            <i class="bi bi-heart"></i>
+                            <p>Todavía no tienes películas favoritas.</p>
+                            <p class="small text-muted">Explora el catálogo y marca tus favoritas ❤️</p>
+                        </div>
+                    `);
+                    $eliminarTodos.hide();
+                    return;
+                }
+
+                $eliminarTodos.show();
+
+                const pelisFav = todasLasPeliculas.filter(function(p) {
+                    return favoritos.includes(p.id);
+                });
+
+                if (pelisFav.length === 0) {
+                    $body.html(`
+                        <div class="favoritos-vacios">
+                            <i class="bi bi-heart"></i>
+                            <p>No se encontraron datos de tus películas favoritas.</p>
+                            <p class="small text-muted">Es posible que hayan sido eliminadas del catálogo.</p>
+                        </div>
+                    `);
+                    $eliminarTodos.hide();
+                    return;
+                }
+
+                let html = '<div class="row g-3">';
+                pelisFav.forEach(function(peli) {
+                    const stars = generarEstrellas(peli.averageRating || 0);
+                    html += `
+                        <div class="col-6 col-md-4 col-lg-3">
+                            <div class="favorito-item">
+                                <img src="${peli.primaryImage || 'https://via.placeholder.com/300x200/333/666?text=Sin+Imagen'}" 
+                                     alt="${peli.primaryTitle}"
+                                     onerror="this.src='https://via.placeholder.com/300x200/333/666?text=Sin+Imagen'">
+                                <div class="favorito-info">
+                                    <div class="nombre" title="${peli.primaryTitle}">${peli.primaryTitle}</div>
+                                    <div class="anio">${peli.startYear || 'N/A'}</div>
+                                    <div class="rating">${stars} ${(peli.averageRating || 0).toFixed(1)}</div>
+                                </div>
+                                <div class="btn-acciones">
+                                    <a href="reseña.html?id=${peli.id}" class="btn btn-ver-fav btn-sm">Ver</a>
+                                    <button class="btn btn-eliminar-fav btn-sm btn-eliminar-fav-modal" data-id="${peli.id}">
+                                        <i class="bi bi-x-lg"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                });
+                html += '</div>';
+
+                $body.html(html);
+            }
+
+            $('#buscadorPeliculas').on('input', function() {
+                filtrarPeliculas();
+            });
+
+            $('#buscadorPeliculas').on('keypress', function(e) {
+                if (e.which === 13) {
+                    e.preventDefault();
+                    filtrarPeliculas();
+                }
+            });
+
+            $('.btn-filtro').on('click', function() {
+                $('.btn-filtro').removeClass('active');
+                $(this).addClass('active');
+                decadaActual = $(this).data('decada');
+                filtrarPeliculas();
+            });
+
+            $('#btnAbrirFavoritos').on('click', function() {
+                renderizarModalFavoritos();
+                favoritosModal.show();
+            });
+
+            $('#btnEliminarTodosFav').on('click', function() {
+                if (favoritos.length === 0) return;
+                if (confirm('¿Seguro que quieres eliminar TODOS tus favoritos?')) {
+                    favoritos = [];
+                    guardarFavoritos();
+                    renderizarModalFavoritos();
+                    renderizarPeliculas(peliculasFiltradas);
+                }
+            });
+
+            $(document).on('click', '.btn-eliminar-fav-modal', function() {
+                const id = $(this).data('id');
+                const index = favoritos.indexOf(id);
+                if (index !== -1) {
+                    favoritos.splice(index, 1);
+                    guardarFavoritos();
+                    renderizarModalFavoritos();
+                    renderizarPeliculas(peliculasFiltradas);
+                }
+            });
+
+            $(document).on('click', '.btn-favorito-card', function(e) {
+                e.stopPropagation();
+                const id = $(this).data('id');
+                const esAhoraFav = toggleFavorito(id);
+                const $icon = $(this).find('i');
+                if (esAhoraFav) {
+                    $(this).addClass('favorito');
+                    $icon.removeClass('bi-heart').addClass('bi-heart-fill');
+                } else {
+                    $(this).removeClass('favorito');
+                    $icon.removeClass('bi-heart-fill').addClass('bi-heart');
+                }
+            });
+
+            $('#btnReintentar').on('click', function() {
+                cargarPeliculas();
+            });
+
+            cargarPeliculas();
+
+            actualizarContadorFavoritos();
+
+            console.log('MovieReviews lista');
+            console.log('Favoritos:', favoritos);
+
+        });
+    </script>
+
+</body>
+</html>
